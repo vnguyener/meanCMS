@@ -1,0 +1,22 @@
+{
+  "name": "homeCMS",
+  "authors": [
+    "vnguyener <its.vnguyen@gmail.com>"
+  ],
+  "description": "management system to gather customer housing data",
+  "main": "app.js",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "*",
+    "angular-material": "*"
+  }
+}
