@@ -1,20 +1,21 @@
 "use strict"
 
-const express = require('express'),
-    router = express.Router(),
-    https = require('https'),
-    http = require('http'),
-    db = require('./db');
+const authorize = require('../routes/authorize.routes'),
+    customer = require('../routes/customer.routes');
 
 function Routes(app) {
     app = app || {};
 
-    //todo - db.connect();
-    //restful api routes for house
-
-    app.get('*', (req, res) => {
+    // todo - db.connect();  
+    // temp handle for angular route
+    app.get('/', (req, res) => {
         res.sendFile('index.html', { root: 'dist' });
     });
+
+    //
+    app.use('/api/authorize', authorize);
+    app.use('/api/customer', customer);
+
 };
 
 module.exports = Routes;

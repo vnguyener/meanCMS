@@ -12,7 +12,6 @@ const gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     connect = require('gulp-connect');
 
-
 let config = {
     paths: {
         mainJS: 'app/app.js',
