@@ -30,7 +30,7 @@ let server = function (config) {
         let instance = self.express.listen(config.port);
 
         //configure routes
-        require('./routes')(self.express); // configure our routes
+        require('./api/index')(self.express); // configure our routes
 
         self.log('magic happens on port:' + config.port);
 
