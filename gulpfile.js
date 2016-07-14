@@ -1,7 +1,6 @@
 "use strict"
 
 const gulp = require('gulp'),
-    babel = require('gulp-babel'),
     sourcemaps = require('gulp-sourcemaps'),
     mocha = require('gulp-mocha'),
     concat = require('gulp-concat'),
@@ -10,51 +9,64 @@ const gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     annotate = require('gulp-ng-annotate'),
     uglify = require('gulp-uglify'),
+    util = require('gulp-util'),
     connect = require('gulp-connect');
 
 let config = {
     paths: {
-        mainJS: 'app/app.js',
-        mainHTML: 'index.html',
-        js: 'app/components/**/*.js',
+        html: 'index.html',
+        js: ['src/app/app.js', 'src/app/components/**/*.js', 'src/app/components/**/**/*.js'],
         dist: 'dist',
-        sass: 'assets/scss/*.scss'
+        sass: 'src/assets/scss/*.scss'
     }
 };
 
-gulp.task("js", ()=> {
-    return gulp.src([config.paths.mainJS, config.paths.js])
+gulp.task('connect', () => {
+    connect.server({
+        livereload: true
+    })
+});
+
+gulp.task("js", () => {
+    return gulp.src(config.paths.js)
         .pipe(sourcemaps.init())
-        .pipe(babel())
-        .pipe(concat('main.min.js'))
+        .pipe(concat('bundle.js'))
+        .pipe(annotate().on('error', util.log))
+        .pipe(gulp.dest(config.paths.dist + '/js'))
+        .pipe(uglify({ mangle: false }).on('error', util.log))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.paths.dist + '/js'))
 });
 
-gulp.task('sass', ()=> {
-    return gulp.src(paths.sass)
+gulp.task('sass', () => {
+    return gulp.src(config.paths.sass)
         .pipe(sass())
-        .pipe(cleanCSS({debug: true}, (details) => {
+        .pipe(concat('main.min.css'))
+        .pipe(cleanCSS({ debug: true }, (details) => {
             console.log(details.name + ": " + details.stats.originalSize);
             console.log(details.name + ": " + details.stats.minifiedSize);
         }))
-        .pipe(gulp.dest(paths.dist + '/css'))
+        .pipe(gulp.dest(config.paths.dist + '/css'))
 });
 
-gulp.task('html', function() {
-    return gulp.src(config.paths.mainHTML)
+gulp.task('html', () => {
+    return gulp.src(config.paths.html)
         .pipe(gulp.dest(config.paths.dist));
 });
 
 gulp.task('lint', () => {
-    return gulp.src([config.paths.mainJS, config.paths.js])
-        .pipe(lint({config: 'eslint.config.json'}))
+    return gulp.src(config.path.js)
+        .pipe(lint({ config: 'eslint.config.json' }))
         .pipe(lint.format())
         .pipe(lint.failAfterError());
 });
 
-gulp.task('watch', () => {});
+gulp.task('watch', () => {
+    gulp.watch(config.paths.js, ['js']);
+    gulp.watch(config.paths.sass, ['sass'])
+    gulp.watch(config.paths.html, ['html'])
+});
 
-gulp.task('build', ['html', 'js']);
+gulp.task('build', ['html', 'sass', 'js']);
 
-gulp.task("default", ['build', 'watch']);
+gulp.task("default", ['build', 'watch', 'connect']);

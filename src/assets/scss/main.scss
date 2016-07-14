@@ -1,0 +1,30 @@
+
+/* common */
+
+.center {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+form {
+    .md-headline {
+        text-align: center;
+    }
+
+    .action-buttons {
+        float: right;
+    }
+}
+
+/* sections */
+#login {
+    width: 500px;
+    height: 500px; 
+}
+

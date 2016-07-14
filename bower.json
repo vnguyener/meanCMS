@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "angular": "*",
-    "angular-material": "*"
+    "angular-material": "*",
+    "angular-route": "*"
   }
 }
