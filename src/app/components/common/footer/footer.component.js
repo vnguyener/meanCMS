@@ -3,7 +3,7 @@
 angular
     .module('main')
     .component('bottomNav', {
-        templateUrl: 'src/app/components/common/footer.template.html',
+        templateUrl: 'views/common/footer.template.html',
         controller: FooterController
     });
 

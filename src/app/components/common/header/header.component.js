@@ -3,7 +3,7 @@
 angular
     .module('main')
     .component('topNav', {
-        templateUrl: 'src/app/components/common/header.template.html'
+        templateUrl: 'views/common/header.template.html'
     });
 
 NavigationController.$inject = [];

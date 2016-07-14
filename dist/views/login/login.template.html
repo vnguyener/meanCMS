@@ -1,0 +1,28 @@
+<section id="login" layout="column" ng-cloak="" class="center">
+    <md-content  class="md-whiteframe-z1 md-padding">
+        <form name="loginForm">
+            <h1 class="md-headline">Login</h1>
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" required="" md-no-asterisk="" name="email" ng-model="$ctrl.email" ng-pattern="/^.+@.+\..+$/">
+                <div ng-messages="loginForm.email.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="pattern">This needs to look like an e-mail address.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input type="password" required="" md-no-asterisk="" name="password" ng-model="$ctrl.password">
+                <div ng-messages="loginForm.password.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <div class="action-buttons" layout="row">
+                <md-button md-no-ink="" class="md-primary">Clear</md-button>
+                <md-button class="md-raised md-primary">Log In</md-button>
+            </div>
+        </form>
+    </md-content>
+</section>

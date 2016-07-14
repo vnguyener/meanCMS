@@ -23,7 +23,7 @@ let server = function (config) {
         self.express.use(bodyParser.urlencoded({ extended: true }));
         self.express.use(bodyParser.json());
         self.express.use(methodOverride('X-HTTP-Method-Override'));
-        self.express.use(express.static('dist'));
+        self.express.use(express.static("dist"));
 
         // Start the server listening
         config.port = config.port || process.env.port || 80;
@@ -32,7 +32,7 @@ let server = function (config) {
         //configure routes
         require('./api/index')(self.express); // configure our routes
 
-        self.log('magic happens on port:' + config.port);
+        self.log('magic happens on localhost:' + config.port);
 
         return instance;
     };

@@ -3,7 +3,7 @@
 angular
     .module('main')
     .component('login', {
-        templateUrl: 'src/app/components/login/login.template.html',
+        templateUrl: 'views/login/login.template.html',
         controller: LoginController
 });
 
@@ -14,4 +14,10 @@ function LoginController(loginService) {
 
     self.email = '';
     self.password = '';
+
+    this.$onInit = function() {
+        loginService.all().then(function(data) {
+            console.log(data);
+        });
+    };
 }

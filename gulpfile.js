@@ -16,6 +16,7 @@ let config = {
     paths: {
         html: 'index.html',
         js: ['src/app/app.js', 'src/app/components/**/*.js', 'src/app/components/**/**/*.js'],
+        templates: ['src/app/components/**/*.html', 'src/app/components/**/**/*.html'],
         dist: 'dist',
         sass: 'src/assets/scss/*.scss'
     }
@@ -54,6 +55,11 @@ gulp.task('html', () => {
         .pipe(gulp.dest(config.paths.dist));
 });
 
+gulp.task('template', () => {
+    return gulp.src(config.paths.templates)
+        .pipe(gulp.dest(config.paths.dist + "/views"))
+})
+
 gulp.task('lint', () => {
     return gulp.src(config.path.js)
         .pipe(lint({ config: 'eslint.config.json' }))
@@ -65,8 +71,9 @@ gulp.task('watch', () => {
     gulp.watch(config.paths.js, ['js']);
     gulp.watch(config.paths.sass, ['sass'])
     gulp.watch(config.paths.html, ['html'])
+    gulp.watch(config.paths.templates, ['template'])
 });
 
-gulp.task('build', ['html', 'sass', 'js']);
+gulp.task('build', ['html', 'template','sass', 'js']);
 
 gulp.task("default", ['build', 'watch', 'connect']);
