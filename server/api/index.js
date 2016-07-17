@@ -2,7 +2,7 @@
 
 const user = require('./controllers/user.controller'),
     customer = require('./controllers/customer.controller'),
-    home = require('./controllers/home.controller');
+    home = require('./controllers/house.controller');
 
 function Routes(app) {
     app = app || {};

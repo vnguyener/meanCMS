@@ -2,16 +2,17 @@
 
 const mongoose = require('mongoose'),
     q = require('q'),
-    config = require('../../config.json'),
-    user = require('../../models/user.model');
+    config = require('../config.json'),
+    user = require('../models/user.model');
 
-let uri = process.env.MONGOLAB_URI || config.user;
-
+// process.env.MONGOLAB_URI
+let uri = config.connectionStrings.user;
+console.log('uri is ' + uri);
 mongoose.connect(uri, function (err, res) {
     if (err) {
-        console.log('ERROR connecting to: ' + uristring + '. ' + err);
+        console.log('ERROR connecting to: ' + uri + '. ' + err);
     } else {
-        console.log('Succeeded connected to: ' + uristring);
+        console.log('Succeeded connected to: ' + uri);
     }
 });
 
@@ -26,17 +27,15 @@ module.exports = service;
 function authenticate(email, password) {
     let deferred = q.defer();
 
-    user.findOne({ 'email': name, 'password': password }, query, function (error, user) {
+    user.findOne({ 'email': email, 'password': password }, function (error, user) {
         if (error) {
             console.log(error);
+            deferred.reject(error);
         }
-        else {
-            query.split(' ').forEach(function (query) {
-                object[query] = user[query];
-            });
-            console.log(object);
+        else if (user) {
+            deferred.resolve(user);
         }
-
-        return object;
     });
+
+    return deferred.promise;
 }

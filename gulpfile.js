@@ -74,6 +74,11 @@ gulp.task('watch', () => {
     gulp.watch(config.paths.templates, ['template'])
 });
 
+gulp.task('test', () => {
+    gulp.src('specs/*.spec.js')
+        .pipe(mocha());
+});
+
 gulp.task('build', ['html', 'template','sass', 'js']);
 
 gulp.task("default", ['build', 'watch', 'connect']);

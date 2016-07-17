@@ -3,7 +3,7 @@
 const express = require('express'),
     router = express.Router(),
     https = require('https'),
-    http = require('http');
+    http = require('http'),
     houseService = require('../../services/house.service');
 
 /* "/api/house"
@@ -13,10 +13,10 @@ const express = require('express'),
 *   DELETE: deletes existing house by id
 */
 
-router.get('/house/:id', getHomeDetails);
-router.post('/house/save', addHome);
-router.put('/house/:id/edit', updateHome);
-route.post('/house/:id/room/save', addRoom);
+router.get('/house/:id', getHouseDetails);
+router.post('/house/save', addHouse);
+router.put('/house/:id/edit', updateHouse);
+router.post('/house/:id/room/save', addRoom);
 
 //router.delete('/house/delete', deleteCustomerById);
 
