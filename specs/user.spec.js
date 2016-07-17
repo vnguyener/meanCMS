@@ -17,6 +17,7 @@ describe("user service", () => {
         userService.authenticate(request.body.email, request.body.password)
             .then((data) => {
                 expect(data).to.not.equal(undefined);
+                assert.equal(data.email, "vunguyen@mail.com");
                 console.log(JSON.stringify(data));
                 done();
             })
