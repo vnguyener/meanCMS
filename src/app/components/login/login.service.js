@@ -10,10 +10,9 @@ function LoginService($http) {
 
   var factory = {};
 
-  factory.login = function () {
-    return $http.get('api/authenticate').then(function (res) {
-        return res.data;
-      })
+  factory.login = function (email, password) {
+    console.log('login service');
+    return $http.post('/api/user/authenticate', {email: email, password: password});
   };
 
   return factory;

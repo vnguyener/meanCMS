@@ -35,6 +35,9 @@ function authenticate(email, password) {
         else if (user) {
             deferred.resolve(user);
         }
+        else {
+            deferred.reject({message: 'Invalid email and/or password.'})
+        }
     });
 
     return deferred.promise;

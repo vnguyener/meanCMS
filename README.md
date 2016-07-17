@@ -11,7 +11,7 @@
 / node_modules - for our devving deps
 / dist - all of our minified files to deploy
 / server - housing our node/express backend
-    / api - controller/routes 
+    / api - controller/routes
     / models - our mongoose models for our restful api calls
     / common - helper/util modules to be dry
     / services - abstract business logic from controllers

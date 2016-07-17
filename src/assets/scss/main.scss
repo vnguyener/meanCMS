@@ -29,6 +29,11 @@ form {
     }
 }
 
+p.error-messages {
+    text-align: center;
+    color: rgba(199, 39, 39, 0.84);
+}
+
 /* sections */
 #login {
     width: 500px;

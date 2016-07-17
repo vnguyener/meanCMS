@@ -14,13 +14,24 @@ function LoginController(loginService) {
 
     self.email = '';
     self.password = '';
+    self.errorMessage = '';
 
     this.$onInit = function() {
     };
 
     self.login = function() {
-        loginService.login().then(function(data) {
+        loginService.login(self.email, self.password).then(function(data) {
+            console.log(data);
+            self.errorMessage = '';
             // if 200 reroute to cms main page
+        }, function(err) {
+            self.errorMessage = err.data;
         });
+    }
+
+    self.clear = function() {
+        self.email = '';
+        self.password = '';
+        self.errorMessage = '';
     }
 }

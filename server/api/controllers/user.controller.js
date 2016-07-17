@@ -16,7 +16,7 @@ const express = require('express'),
 // routes
 router.get('/user/:id', getUserById);
 router.get('/users', getUserList);
-router.get('/user/authenticate', authenticate)
+router.post('/user/authenticate', authenticate)
 
 module.exports = router;
 
@@ -41,24 +41,22 @@ function getUserList() {
 };
 
 function getUserById(req, res) {
-    let list = GetUserList();
-    let data = utils().findById(list, 1);
-    console.log(data);
-    res.status(200).json(data);
+    res.status(200);
 };
 
-function authenticate(username, password) {
-    userService.authenticate(req.body.username, req.body.password)
-        .then(function (token) {
-            if (token) {
+function authenticate(req, res) {
+    userService.authenticate(req.body.email, req.body.password)
+        .then(function (data) {
+            if (data) {
                 // authentication successful
-                res.send({ token: token });
+                console.log('controller res: ' + JSON.stringify(data));
+                res.status(200).send({ token: 'yes' });
             } else {
                 // authentication failed
                 res.sendStatus(401);
             }
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.status(401).send(err.message);
         });
 }
