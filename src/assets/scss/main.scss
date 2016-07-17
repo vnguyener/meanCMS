@@ -1,6 +1,13 @@
 
 /* common */
 
+.horizontalcenter {
+    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .center {
     display: flex;
     justify-content: center;

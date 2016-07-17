@@ -7,20 +7,13 @@ angular
 LoginService.$inject = ['$http'];
 
 function LoginService($http) {
-  var contacts = $http.get('api/User/1').then(function (res) {
-    return res.data;
-  });
 
   var factory = {};
 
-  factory.all = function () {
-    return contacts;
-  };
-
-  factory.get = function (id) {
-    return contacts.then(function(){
-      return utils.findById(contacts, id);
-    })
+  factory.login = function () {
+    return $http.get('api/authenticate').then(function (res) {
+        return res.data;
+      })
   };
 
   return factory;

@@ -16,8 +16,11 @@ function LoginController(loginService) {
     self.password = '';
 
     this.$onInit = function() {
-        loginService.all().then(function(data) {
-            console.log(data);
-        });
     };
+
+    self.login = function() {
+        loginService.login().then(function(data) {
+            // if 200 reroute to cms main page
+        });
+    }
 }

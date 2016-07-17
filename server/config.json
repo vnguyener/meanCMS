@@ -1,0 +1,7 @@
+{
+    "connectionStrings": {
+        "user": "mongodb://localhost/cms_user",
+        "customer": "mongodb://localhost/cms_customer",
+        "House": "mongodb://localhost/cms_houses"
+    }
+}

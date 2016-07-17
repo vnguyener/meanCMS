@@ -11,8 +11,10 @@
 / node_modules - for our devving deps
 / dist - all of our minified files to deploy
 / server - housing our node/express backend
-    / config - configuration files for our express routes and server
+    / api - controller/routes 
     / models - our mongoose models for our restful api calls
+    / common - helper/util modules to be dry
+    / services - abstract business logic from controllers
 
 app.js - to kick off our application, good place to handle pre/post request for auth
 gulpfile.js - task runner for minifing, dist-ing, precompiling, linting
@@ -25,6 +27,7 @@ json files for bower/npm/eslint configurations
 
 ## Todos
 
-* hook up mongo
-* hook up angular
-* hook up restful routes
+* angular
+* add routing from login to customer list
+* add new customer & home pages
+* setup mongolab

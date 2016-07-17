@@ -1,7 +1,8 @@
 "use strict"
 
-const user = require('./routes/user.routes'),
-    customer = require('./routes/customer.routes');
+const user = require('./controllers/user.controller'),
+    customer = require('./controllers/customer.controller'),
+    home = require('./controllers/home.controller');
 
 function Routes(app) {
     app = app || {};
@@ -14,6 +15,7 @@ function Routes(app) {
     // registering api routes
     app.use('/api', customer);
     app.use('/api', user);
+    app.use('/api', home);
 };
 
 module.exports = Routes;
