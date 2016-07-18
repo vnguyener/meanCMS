@@ -1,29 +1,28 @@
-"use strict"
-
 angular
     .module('main')
     .component('login', {
         templateUrl: 'views/login/login.template.html',
         controller: LoginController
-});
+    });
 
-LoginController.$inject = ['login.service'];
+LoginController.$inject = ['login.service', '$location'];
 
-function LoginController(loginService) {
+function LoginController(loginService, $location) {
     var self = this;
 
     self.email = '';
     self.password = '';
     self.errorMessage = '';
 
-    this.$onInit = function() {
+    self.$onInit = function() {
     };
 
     self.login = function() {
         loginService.login(self.email, self.password).then(function(data) {
             console.log(data);
             self.errorMessage = '';
-            // if 200 reroute to cms main page
+            $location.path('/customers');
+
         }, function(err) {
             self.errorMessage = err.data;
         });
