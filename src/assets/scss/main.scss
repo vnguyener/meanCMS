@@ -40,3 +40,12 @@ p.error-messages {
     height: 500px; 
 }
 
+#customer-list {
+    md-content {
+        border-radius: 3px; 
+
+        md-toolbar {
+            border-radius: 3px 3px 0px 0px;
+        }
+    }
+}
