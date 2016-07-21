@@ -165,7 +165,7 @@
     <div>
         <md-subheader>Room(s)</md-subheader>
         <div layout="row">
-            <md-button ng-repeat="room in $ctrl.rooms track by $index" class="md-raised md-primary">
+            <md-button ng-repeat="room in $ctrl.rooms track by $index" class="md-raised md-warn">
                 Room {{$index + 1}} <a ng-click="$ctrl.removeRoom('$index')">x</a>
             </md-button>
         </div>

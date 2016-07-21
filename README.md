@@ -27,7 +27,7 @@ json files for bower/npm/eslint configurations
 
 ## Todos
 
-* add routing from customer list to add new, and view details
-* add authentication on routes
+* add routing from customer form to customer summary and saving
+* add authentication on routes // phase 2
 * add material icons
 * setup mongolab
