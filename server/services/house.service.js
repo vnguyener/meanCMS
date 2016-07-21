@@ -6,7 +6,7 @@ const mongoose = require('mongoose'),
     house = require('../models/house.model'),
     room = require('../models/room.model');
 
-let uri = config.connectionStrings.house;
+let uri = config.connectionStrings.cms;
 
 mongoose.connect(uri, function (err, res) {
     if (err) {
@@ -28,8 +28,22 @@ function addHouse() {
 
 }
 
-function getHouseDetailsById() {
+function getHouseDetailsById(id) {
+    let deferred = q.defer();
+    
+    house.findOne({'id': id}, (error, details) => {
+        if (error) {
+            deferred.reject(error);
+        }
+        else if (details) {
+            deferred.resolve(details);
+        }
+        else {
+            deferred.reject({message: 'Internal Server Error'});
+        }
+    });
 
+    return deferred.promise;
 }
 
 function updateHouseDetailsById() {

@@ -21,32 +21,16 @@ router.post('/user/authenticate', authenticate)
 module.exports = router;
 
 function getUserList() {
-    return [
-        {
-            "id": 1,
-            "firstName": "Vu",
-            "lastName": "Nguyen",
-            "email": "vnguyen@gmail.com",
-            "password": "password123",
-            "role": "Consultant"
-        },
-        {
-            "id": 2,
-            "firstName": "Bob",
-            "lastName": "Nguyen",
-            "email": "bnguyen@gmail.com",
-            "password": "password123",
-            "role": "Consultant"
-        }]
+    return true; 
 };
 
 function getUserById(req, res) {
-    res.status(200);
+    return true;
 };
 
 function authenticate(req, res) {
     userService.authenticate(req.body.email, req.body.password)
-        .then(function (data) {
+        .then((data) => {
             if (data) {
                 // authentication successful
                 console.log('controller res: ' + JSON.stringify(data));
@@ -56,7 +40,7 @@ function authenticate(req, res) {
                 res.sendStatus(401);
             }
         })
-        .catch(function (err) {
+        .catch((err) => {
             res.status(401).send(err.message);
         });
 }

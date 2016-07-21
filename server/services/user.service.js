@@ -6,8 +6,8 @@ const mongoose = require('mongoose'),
     user = require('../models/user.model');
 
 // process.env.MONGOLAB_URI
-let uri = config.connectionStrings.user;
-console.log('uri is ' + uri);
+let uri = config.connectionStrings.cms;
+
 mongoose.connect(uri, function (err, res) {
     if (err) {
         console.log('ERROR connecting to: ' + uri + '. ' + err);
@@ -27,9 +27,8 @@ module.exports = service;
 function authenticate(email, password) {
     let deferred = q.defer();
 
-    user.findOne({ 'email': email, 'password': password }, function (error, user) {
+    user.findOne({ 'email': email, 'password': password }, (error, user) => {
         if (error) {
-            console.log(error);
             deferred.reject(error);
         }
         else if (user) {

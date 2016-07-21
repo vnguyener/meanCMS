@@ -13,9 +13,9 @@ function Routes(app) {
     });
 
     // registering api routes
-    //app.use('/api', customer);
+    app.use('/api', customer);
     app.use('/api', user);
-    //app.use('/api', home);
+    app.use('/api', home);
 };
 
 module.exports = Routes;

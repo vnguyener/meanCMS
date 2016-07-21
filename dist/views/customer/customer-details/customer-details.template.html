@@ -1,0 +1,51 @@
+<section id="customer-details" layout="column" ng-cloak="" class="md-padding">
+    <div class="" layout="column">
+        <md-card>
+            <md-card-header>
+                <md-card-avatar>
+                    <md-icon class="md-avatar-icon"></md-icon>
+                </md-card-avatar>
+                <md-card-header-text>
+                    <span class="md-title">{{$ctrl.customer.firstName + " " + $ctrl.customer.lastName}}</span>
+                    <span class="md-subhead">{{$ctrl.customer.email}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <img ng-src="/imgs/home.jpg" class="md-card-image customer-home" alt="Washed Out">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Information</span>
+                    <span class="md-subhead">
+                        <p>Phone</p>
+                        <p>{{$ctrl.customer.phoneNumber}}</p>
+
+                        <p>Address</p>
+                        <p>{{$ctrl.customer.address}}</p>
+                    </span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="center center">
+                <md-button>Contact</md-button>
+                <md-button>Forward</md-button>
+            </md-card-actions>
+            <md-card-content>
+                    <span class="md-headline">Home Information</span>
+                    <span class="md-subhead">
+                        <p>Total Size in SQ Ft.</p>
+                        <p>{{$ctrl.house.totalSize}}</p>
+                        <p>Number of Stories</p>
+                        <p>{{$ctrl.house.numStories}}</p>
+                        <p>Number of Bedrooms</p>
+                        <p>{{$ctrl.house.numBedrooms}}</p>
+                        <p>Number of Bathrooms</p>
+                        <p>{{$ctrl.house.numBathrooms}}</p>
+                        <p>AC Type</p>
+                        <p>{{$ctrl.house.acType}}</p>
+                        <p>Heating Type</p>
+                        <p>{{$ctrl.house.heatingType}}</p>
+                        <p>Installation Date</p>
+                        <p>{{$ctrl.house.installationDate | date:"MM/dd/yyyy" }}</p>
+                    </span>
+            </md-card-content>
+        </md-card>
+    </div>
+</section>

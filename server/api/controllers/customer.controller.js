@@ -26,26 +26,25 @@ router.delete('/customer/delete', deleteCustomerById);
 module.exports = router;
 
 function getCustomers(req, res) {
-    res.status(200).json(
-        {
-            "customers": [
-                {
-                    "_id": "1",
-                    "firstName": "Jane",
-                    "lastName": "Doe"
-                },
-                {
-                    "_id": "2",
-                    "firstName": "Marsha",
-                    "lastName": "Brady"
-                },
-            ]
-        }
-    )
+    customerService.getAllCustomers()
+        .then((data) => {
+            res.status(200).send(data);
+        })
+        .catch((err) => {
+            res.status(500).send(err)
+        });
 }
 
-function getCustomerById(req, res) {
-
+function getCustomerById(req, res) {    
+    if (req.params.id) {
+        customerService.getById(req.params.id)
+            .then((data) => {
+                res.status(200).send(data);
+            })
+            .catch((err) => {
+                res.status(500).send(err)
+            });
+    }
 }
 
 function updateCustomerById(req, res) {

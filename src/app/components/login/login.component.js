@@ -14,21 +14,20 @@ function LoginController(loginService, $location) {
     self.password = '';
     self.errorMessage = '';
 
-    self.$onInit = function() {
+    self.$onInit = function () {
     };
 
-    self.login = function() {
-        loginService.login(self.email, self.password).then(function(data) {
-            console.log(data);
-            self.errorMessage = '';
-            $location.path('/customers');
-
-        }, function(err) {
-            self.errorMessage = err.data;
-        });
+    self.login = function () {
+        loginService.login(self.email, self.password)
+            .then(function (data) {
+                self.errorMessage = '';
+                $location.path('/customers');
+            }, function (err) {
+                self.errorMessage = err.data;
+            });
     }
 
-    self.clear = function() {
+    self.clear = function () {
         self.email = '';
         self.password = '';
         self.errorMessage = '';

@@ -23,7 +23,15 @@ router.post('/house/:id/room/save', addRoom);
 module.exports = router;
 
 function getHouseDetails(req, res) {
-
+    if (req.params.id) {
+        houseService.getById(req.params.id)
+            .then((data) => {
+                res.status(200).send(data);
+            })
+            .catch((error) => {
+                res.status(500).send(err);
+            })
+    }
 }
 
 function addHouse(req, res) {

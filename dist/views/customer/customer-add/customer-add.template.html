@@ -1,0 +1,153 @@
+<section id="customer-addnew" layout="column" ng-cloak="" class="md-padding">
+    <md-content class="md-whiteframe-z1">
+        <form name="newCustomerForm" novalidate class="md-padding">
+            <md-subheader>Customer Information</md-subheader>
+
+            <md-input-container class="md-block">
+                <label>First Name</label>
+                <input type="text" required="" md-no-asterisk="" name="firstName" ng-model="$ctrl.customer.firstName" ng-minlength="2">
+                <div ng-messages="newCustomerForm.firstName.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="minlength">This field needs to be at least (2) characters.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Last Name</label>
+                <input type="text" required="" md-no-asterisk="" name="lastName" ng-model="$ctrl.customer.lastName" ng-minlength="2">
+                <div ng-messages="newCustomerForm.lastName.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="minlength">This field needs to be at least (2) characters.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Address</label>
+                <input type="text" required="" md-no-asterisk="" name="address" ng-model="$ctrl.customer.address">
+                <div ng-messages="newCustomerForm.address.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Phone Number</label>
+                <input type="text" required="" md-no-asterisk="" name="phone" ng-model="$ctrl.customer.phoneNumber">
+                <div ng-messages="newCustomerForm.phone.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input type="email" required="" md-no-asterisk="" name="email" ng-model="$ctrl.email" ng-pattern="/^.+@.+\..+$/">
+                <div ng-messages="newCustomerForm.email.$error">
+                    <div ng-message="required">This is required.</div>
+                    <div ng-message="pattern">This needs to look like an e-mail.</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-content>
+
+    <md-content class="md-whiteframe-z1">
+        <form name="newHomeForm" novalidate class="md-padding">
+            <md-subheader>Home Information</md-subheader>
+
+            <md-input-container class="md-block">
+                <label>Size in Square Ft.</label>
+                <input type="number" required="" md-no-asterisk="" name="size" ng-model="$ctrl.size">
+                <div ng-messages="newHomeForm.size.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Number of Stories</label>
+                <md-select ng-model="$ctrl.home.numStories" ng-changed="$ctrl.changed()">
+                    <md-option ng-repeat="story in $ctrl.options" value="{{story}}">
+                        {{ story }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Number of Bedrooms</label>
+                <md-select ng-model="$ctrl.home.numBedrooms">
+                    <md-option ng-repeat="room in $ctrl.options" value="{{room}}">
+                        {{ room }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Number of Bathrooms</label>
+                <md-select ng-model="$ctrl.home.numBathrooms">
+                    <md-option ng-repeat="bath in $ctrl.options" value="{{bath}}">
+                        {{ bath }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>AC Type</label>
+                <md-select ng-model="$ctrl.home.acType">
+                    <md-option ng-repeat="ac in $ctrl.acTypes" value="{{ac}}">
+                        {{ ac }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Heating Type</label>
+                <md-select ng-model="$ctrl.home.heatingType">
+                    <md-option ng-repeat="heat in $ctrl.heatTypes" value="{{heat}}">
+                        {{ heat }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <label>Installation Date</label>
+            <md-datepicker name="installationDate" ng-model="$ctrl.installationDate" md-placeholder="Enter date" require=""></md-datepicker>
+
+            <div ng-messages="newHomeForm.installationDate.$error">
+                <div ng-message="require">This date is required.</div>
+            </div>
+        </form>
+    </md-content>
+    <md-content class="md-whiteframe-z1" ng-repeat="story in $ctrl.stories">
+        <form name="newRoomForm" novalidate class="md-padding">
+            <md-subheader>Room(s) Information</md-subheader>
+
+            <md-input-container class="md-block">
+                <label>Size in Square Ft.</label>
+                <input type="number" required="" md-no-asterisk="" name="size" ng-model="$ctrl.room.size">
+                <div ng-messages="newRoomForm.size.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Number of Windows</label>
+                <md-select ng-model="$ctrl.room.numWindows">
+                    <md-option ng-repeat="window in $ctrl.options" value="{{window}}">
+                        {{ window }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>On Which Story?</label>
+                <md-select ng-model="$ctrl.room.numStory">
+                    <md-option ng-repeat="story in $ctrl.options" value="{{story}}">
+                        {{ story }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </form>
+    </md-content>
+
+    <div class="action-buttons" layout="row">
+        <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clear()">Clear</md-button>
+        <md-button class="md-raised md-primary" type="submit">Save</md-button>
+    </div>
+
+</section>

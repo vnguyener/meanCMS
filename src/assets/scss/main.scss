@@ -43,9 +43,27 @@ p.error-messages {
 #customer-list {
     md-content {
         border-radius: 3px; 
-
+        min-height: 500px;
+        
         md-toolbar {
             border-radius: 3px 3px 0px 0px;
         }
+    }
+}
+
+#customer-details {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.md-card-image.customer-home {
+    height: 300px;
+    widows: auto;
+}
+
+
+#customer-addnew {
+    md-content {
+        margin: 15px;
     }
 }

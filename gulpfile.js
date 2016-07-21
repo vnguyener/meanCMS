@@ -17,6 +17,7 @@ let config = {
         html: 'index.html',
         js: ['src/app/app.js', 'src/app/components/**/*.js', 'src/app/components/**/**/*.js'],
         templates: ['src/app/components/**/*.html', 'src/app/components/**/**/*.html'],
+        imgs: ['src/assets/imgs/*.jpg', 'src/assets/imgs/*.png'],
         dist: 'dist',
         sass: 'src/assets/scss/*.scss'
     }
@@ -25,7 +26,7 @@ let config = {
 gulp.task('connect', () => {
     connect.server({
         livereload: true
-    })
+    });
 });
 
 gulp.task("js", () => {
@@ -36,7 +37,7 @@ gulp.task("js", () => {
         .pipe(gulp.dest(config.paths.dist + '/js'))
         .pipe(uglify({ mangle: false }).on('error', util.log))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.paths.dist + '/js'))
+        .pipe(gulp.dest(config.paths.dist + '/js'));
 });
 
 gulp.task('sass', () => {
@@ -47,7 +48,7 @@ gulp.task('sass', () => {
             console.log(details.name + ": " + details.stats.originalSize);
             console.log(details.name + ": " + details.stats.minifiedSize);
         }))
-        .pipe(gulp.dest(config.paths.dist + '/css'))
+        .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
 gulp.task('html', () => {
@@ -57,8 +58,13 @@ gulp.task('html', () => {
 
 gulp.task('template', () => {
     return gulp.src(config.paths.templates)
-        .pipe(gulp.dest(config.paths.dist + "/views"))
-})
+        .pipe(gulp.dest(config.paths.dist + "/views"));
+});
+
+gulp.task('imgs', () => {
+    return gulp.src(config.paths.imgs)
+        .pipe(gulp.dest(config.paths.dist + "/imgs"));
+});
 
 gulp.task('lint', () => {
     return gulp.src(config.path.js)
@@ -69,9 +75,9 @@ gulp.task('lint', () => {
 
 gulp.task('watch', () => {
     gulp.watch(config.paths.js, ['js']);
-    gulp.watch(config.paths.sass, ['sass'])
-    gulp.watch(config.paths.html, ['html'])
-    gulp.watch(config.paths.templates, ['template'])
+    gulp.watch(config.paths.sass, ['sass']);
+    gulp.watch(config.paths.html, ['html']);
+    gulp.watch(config.paths.templates, ['template']);
 });
 
 gulp.task('test', () => {
@@ -79,6 +85,6 @@ gulp.task('test', () => {
         .pipe(mocha());
 });
 
-gulp.task('build', ['html', 'template','sass', 'js']);
+gulp.task('build', ['html', 'template','sass', 'imgs', 'js']);
 
 gulp.task("default", ['build', 'watch', 'connect']);

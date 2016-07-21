@@ -5,25 +5,30 @@ angular
         controller: CustomerListController
     });
 
-CustomerListController.$inject = ['customer-list.service'];
+CustomerListController.$inject = ['customer-list.service', '$location'];
 
-function CustomerListController() {
+function CustomerListController(customerListService, $location) {
     var self = this;
-    
-    self.customers = [
-        {
-            id: 1,
-            name: 'Bob Builder'
-        },
-        {
-            id: 2,
-            name: 'Dora Explora'
-        }
-    ];
 
-    self.$onInit = function() {
+    self.customers = [];
+
+    self.$onInit = function () {
+        customerListService.getCustomerList()
+            .then(function (data) {
+                console.log(data);
+                self.customers = data.data;
+            }, function(err) {
+                throw new Error(err);
+            });
     };
 
-    self.viewCustomerDetails = function() {
+    self.viewCustomerDetails = function (id) {
+        $location.path('/customer/' + id);
     };
+
+    self.addNewCustomer = function () {
+        $location.path('/customer/new');
+    }
+
+
 };
