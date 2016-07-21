@@ -46,6 +46,11 @@
                 </div>
             </md-input-container>
         </form>
+
+        <div class="action-buttons" layout="row">
+            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clear()">Clear</md-button>
+        </div>
+
     </md-content>
 
     <md-content class="md-whiteframe-z1">
@@ -112,8 +117,14 @@
                 <div ng-message="require">This date is required.</div>
             </div>
         </form>
+
+        <div class="action-buttons" layout="row">
+            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clear()">Clear</md-button>
+        </div>
+
     </md-content>
-    <md-content class="md-whiteframe-z1" ng-repeat="story in $ctrl.stories">
+
+    <md-content class="md-whiteframe-z1">
         <form name="newRoomForm" novalidate class="md-padding">
             <md-subheader>Room(s) Information</md-subheader>
 
@@ -143,11 +154,25 @@
                 </md-select>
             </md-input-container>
         </form>
-    </md-content>
 
     <div class="action-buttons" layout="row">
-        <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clear()">Clear</md-button>
-        <md-button class="md-raised md-primary" type="submit">Save</md-button>
+        <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearRoomForm()">Clear</md-button>
+        <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.addRoom($ctrl.room)">Add Room</md-button>
+    </div>
+
+    </md-content>
+
+    <div>
+        <md-subheader>Room(s)</md-subheader>
+        <div layout="row">
+            <md-button ng-repeat="room in $ctrl.rooms track by $index" class="md-raised md-primary">
+                Room {{$index + 1}} <a ng-click="$ctrl.removeRoom('$index')">x</a>
+            </md-button>
+        </div>
+    </div>
+
+    <div class="action-buttons" layout="row">
+        <md-button class="md-raised md-primary" type="submit">Go To Summary</md-button>
     </div>
 
 </section>
