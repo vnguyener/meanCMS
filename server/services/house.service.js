@@ -20,6 +20,7 @@ let service = {};
 
 service.add = addHouse;
 service.getById = getHouseDetailsById;
+service.getRooms = getRoomsByHouseId;
 service.update = updateHouseDetailsById;
 
 module.exports = service;
@@ -37,6 +38,24 @@ function getHouseDetailsById(id) {
         }
         else if (details) {
             deferred.resolve(details);
+        }
+        else {
+            deferred.reject({message: 'Internal Server Error'});
+        }
+    });
+
+    return deferred.promise;
+}
+
+function getRoomsByHouseId(id) {
+    let deferred = q.defer();
+
+    room.find({homeID: id}, (error, rooms) => {
+        if (error) {
+            deferred.reject(error);
+        }
+        else if (rooms) {
+            deferred.resolve(rooms);
         }
         else {
             deferred.reject({message: 'Internal Server Error'});

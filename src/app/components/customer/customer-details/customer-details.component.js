@@ -12,19 +12,22 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
 
     self.customer = {};
     self.house = {};
+    self.rooms = [];
+
     self.params = $routeParams;
 
     self.$onInit = function () {
         if (self.params) {
-            getCustomerDetails(self.params.id, getHomeDetails);
+            getCustomerDetails(self.params.id);
         }
     };
 
-    var getCustomerDetails = function (id, callback) {
+    var getCustomerDetails = function (id) {
         customerDetailsService.getCustomerByID(id)
             .then(function (data) {
                 self.customer = data.data;
-                callback(self.customer.homeID);
+                getHomeDetails(self.customer.homeID);
+                getRooms(self.customer.homeID);
             }, function (error) {
                 throw new Error(error);
             });
@@ -38,4 +41,13 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
                 throw new Error(err);
             });
     };
+
+    var getRooms = function (id) {
+        customerDetailsService.getRoomsByCustomerHomeId(id)
+            .then(function (data) {
+                self.rooms = data.data;
+            }, function (err) {
+                throw new Error(err);
+            });
+    }
 }

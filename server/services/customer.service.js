@@ -31,7 +31,6 @@ function getById(id) {
             deferred.reject(error);
         }
         else if (customer) {
-            console.log(customer);
             deferred.resolve(customer);
         }
         else {

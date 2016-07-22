@@ -14,6 +14,7 @@ const express = require('express'),
 */
 
 router.get('/house/:id', getHouseDetails);
+router.get('/house/:id/rooms', getRooms);
 router.post('/house/save', addHouse);
 router.put('/house/:id/edit', updateHouse);
 router.post('/house/:id/room/save', addRoom);
@@ -23,14 +24,16 @@ router.post('/house/:id/room/save', addRoom);
 module.exports = router;
 
 function getHouseDetails(req, res) {
+
     if (req.params.id) {
         houseService.getById(req.params.id)
             .then((data) => {
                 res.status(200).send(data);
+                responseObject.homeInfo = data;
             })
             .catch((error) => {
                 res.status(500).send(err);
-            })
+            });
     }
 };
 
@@ -45,3 +48,15 @@ function updateHouse(req, res) {
 function addRoom(req, res) {
 
 };
+
+function getRooms(req, res) {
+    if (req.params.id) {
+        houseService.getRooms(req.params.id)
+            .then((data) => {
+                res.status(200).send(data);
+            })
+            .catch((error) => {
+                res.status(500).send(err);
+            });
+    }
+}

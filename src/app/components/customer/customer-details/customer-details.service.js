@@ -15,5 +15,9 @@ function CustomerDetailsService($http) {
         return $http.get('/api/house/' + id);
     };
 
+    factory.getRoomsByCustomerHomeId = function(id) {
+        return $http.get('/api/house/' + id + '/rooms')
+    }
+
     return factory;
 };
