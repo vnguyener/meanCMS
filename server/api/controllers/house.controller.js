@@ -29,7 +29,6 @@ function getHouseDetails(req, res) {
         houseService.getById(req.params.id)
             .then((data) => {
                 res.status(200).send(data);
-                responseObject.homeInfo = data;
             })
             .catch((error) => {
                 res.status(500).send(err);

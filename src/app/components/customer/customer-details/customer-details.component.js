@@ -24,8 +24,8 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
 
     var getCustomerDetails = function (id) {
         customerDetailsService.getCustomerByID(id)
-            .then(function (data) {
-                self.customer = data.data;
+            .then(function (response) {
+                self.customer = response.data;
                 getHomeDetails(self.customer.homeID);
                 getRooms(self.customer.homeID);
             }, function (error) {
@@ -35,8 +35,8 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
 
     var getHomeDetails = function (id) {
         customerDetailsService.getHomeByCustomerHomeId(id)
-            .then(function (data) {
-                self.house = data.data;
+            .then(function (response) {
+                self.house = response.data;
             }, function (err) {
                 throw new Error(err);
             });
@@ -44,8 +44,8 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
 
     var getRooms = function (id) {
         customerDetailsService.getRoomsByCustomerHomeId(id)
-            .then(function (data) {
-                self.rooms = data.data;
+            .then(function (response) {
+                self.rooms = response.data;
             }, function (err) {
                 throw new Error(err);
             });

@@ -14,9 +14,8 @@ function CustomerListController(customerListService, $location) {
 
     self.$onInit = function () {
         customerListService.getCustomerList()
-            .then(function (data) {
-                console.log(data);
-                self.customers = data.data;
+            .then(function (response) {
+                self.customers = response.data;
             }, function(err) {
                 throw new Error(err);
             });

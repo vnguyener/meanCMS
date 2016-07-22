@@ -19,7 +19,7 @@ function LoginController(loginService, $location) {
 
     self.login = function () {
         loginService.login(self.email, self.password)
-            .then(function (data) {
+            .then(function (response) {
                 self.errorMessage = '';
                 $location.path('/customers');
             }, function (err) {
