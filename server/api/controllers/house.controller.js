@@ -32,16 +32,16 @@ function getHouseDetails(req, res) {
                 res.status(500).send(err);
             })
     }
-}
+};
 
 function addHouse(req, res) {
 
-}
+};
 
 function updateHouse(req, res) {
 
-}
+};
 
 function addRoom(req, res) {
 
-}
+};

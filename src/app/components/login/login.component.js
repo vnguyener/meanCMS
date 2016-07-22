@@ -23,13 +23,9 @@ function LoginController(loginService, $location) {
                 self.errorMessage = '';
                 $location.path('/customers');
             }, function (err) {
+                self.email = '';
+                self.password = '';
                 self.errorMessage = err.data;
             });
-    }
-
-    self.clear = function () {
-        self.email = '';
-        self.password = '';
-        self.errorMessage = '';
-    }
+    };
 }

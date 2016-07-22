@@ -48,4 +48,4 @@ function getHouseDetailsById(id) {
 
 function updateHouseDetailsById() {
 
-}
+};

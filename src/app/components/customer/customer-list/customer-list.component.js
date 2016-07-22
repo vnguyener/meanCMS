@@ -28,7 +28,5 @@ function CustomerListController(customerListService, $location) {
 
     self.addNewCustomer = function () {
         $location.path('/customer/new');
-    }
-
-
+    };
 };

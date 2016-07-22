@@ -9,7 +9,7 @@ function CustomerListService($http) {
 
     factory.getCustomerList = function() {
         return $http.get('/api/customers');
-    }
+    };
 
     return factory;
 };

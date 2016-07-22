@@ -1,7 +1,13 @@
+<md-toolbar class="md-tall md-primary">
+    <h2 class="md-toolbar-tools">
+        <span>Customers > New</span>
+    </h2>
+</md-toolbar>
+
 <section id="customer-addnew" layout="column" ng-cloak="" class="md-padding">
     <md-content class="md-whiteframe-z1">
         <form name="newCustomerForm" novalidate class="md-padding">
-            <md-subheader>Customer Information</md-subheader>
+            <md-subheader>Personal Information</md-subheader>
 
             <md-input-container class="md-block">
                 <label>First Name</label>
@@ -39,7 +45,7 @@
 
             <md-input-container class="md-block">
                 <label>Email</label>
-                <input type="email" required="" md-no-asterisk="" name="email" ng-model="$ctrl.email" ng-pattern="/^.+@.+\..+$/">
+                <input type="email" required="" md-no-asterisk="" name="email" ng-model="$ctrl.customer.email" ng-pattern="/^.+@.+\..+$/">
                 <div ng-messages="newCustomerForm.email.$error">
                     <div ng-message="required">This is required.</div>
                     <div ng-message="pattern">This needs to look like an e-mail.</div>
@@ -48,7 +54,7 @@
         </form>
 
         <div class="action-buttons" layout="row">
-            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clear()">Clear</md-button>
+            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearCustomerInfoForm()">Clear</md-button>
         </div>
 
     </md-content>
@@ -59,7 +65,7 @@
 
             <md-input-container class="md-block">
                 <label>Size in Square Ft.</label>
-                <input type="number" required="" md-no-asterisk="" name="size" ng-model="$ctrl.size">
+                <input type="number" required="" md-no-asterisk="" name="size" ng-model="$ctrl.home.totalSize">
                 <div ng-messages="newHomeForm.size.$error">
                     <div ng-message="required">This is required.</div>
                 </div>
@@ -111,7 +117,7 @@
             </md-input-container>
 
             <label>Installation Date</label>
-            <md-datepicker name="installationDate" ng-model="$ctrl.installationDate" md-placeholder="Enter date" require=""></md-datepicker>
+            <md-datepicker name="installationDate" ng-model="$ctrl.home.installationDate" md-placeholder="Enter date" require=""></md-datepicker>
 
             <div ng-messages="newHomeForm.installationDate.$error">
                 <div ng-message="require">This date is required.</div>
@@ -119,7 +125,7 @@
         </form>
 
         <div class="action-buttons" layout="row">
-            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clear()">Clear</md-button>
+            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearHomeForm()">Clear</md-button>
         </div>
 
     </md-content>
@@ -155,14 +161,14 @@
             </md-input-container>
         </form>
 
-    <div class="action-buttons" layout="row">
-        <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearRoomForm()">Clear</md-button>
-        <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.addRoom($ctrl.room)">Add Room</md-button>
-    </div>
+        <div class="action-buttons" layout="row">
+            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearRoomForm()">Clear</md-button>
+            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.addRoom($ctrl.room)">Add Room</md-button>
+        </div>
 
     </md-content>
 
-    <div>
+    <div ng-if="$ctrl.rooms.length > 0">
         <md-subheader>Room(s)</md-subheader>
         <div layout="row">
             <md-button ng-repeat="room in $ctrl.rooms track by $index" class="md-raised md-warn">
@@ -171,8 +177,8 @@
         </div>
     </div>
 
-    <div class="action-buttons" layout="row">
-        <md-button class="md-raised md-primary" type="submit">Go To Summary</md-button>
+    <div class="action-buttons center-button" layout="row">
+        <md-button class="md-raised md-primary" ng-click="$ctrl.setSessionForSummary()">Go To Summary</md-button>
     </div>
 
 </section>

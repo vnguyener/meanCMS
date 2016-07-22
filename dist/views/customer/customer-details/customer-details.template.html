@@ -1,3 +1,9 @@
+<md-toolbar class="md-tall md-primary">
+    <h2 class="md-toolbar-tools">
+        <span>Customers > {{$ctrl.customer.firstName + " " + $ctrl.customer.lastName}} > Details</span>
+    </h2>
+</md-toolbar>
+
 <section id="customer-details" layout="column" ng-cloak="" class="md-padding">
     <div class="" layout="column">
         <md-card>
@@ -13,7 +19,7 @@
             <img ng-src="/imgs/home.jpg" class="md-card-image customer-home" alt="Washed Out">
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">Information</span>
+                    <span class="md-headline">Personal Information</span>
                     <span class="md-subhead">
                         <p>Phone</p>
                         <p>{{$ctrl.customer.phoneNumber}}</p>

@@ -9,9 +9,11 @@ function CustomerDetailsService($http) {
 
     factory.getCustomerByID = function(id) {
         return $http.get('/api/customer/' + id);
-    }
+    };
+
     factory.getHomeByCustomerHomeId = function(id) {
         return $http.get('/api/house/' + id);
-    }
+    };
+
     return factory;
 };

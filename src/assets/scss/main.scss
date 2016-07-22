@@ -24,9 +24,15 @@ form {
         text-align: center;
     }
 
-    .action-buttons {
-        float: right;
-    }
+
+}
+
+.action-buttons {
+    float: right;
+}
+
+.action-buttons.center-button {
+    margin: 0 auto;
 }
 
 p.error-messages {

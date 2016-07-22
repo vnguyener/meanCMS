@@ -5,26 +5,26 @@ angular
         controller: CustomerAddController
     });
 
-CustomerAddController.$inject = ['customer-add.service'];
+CustomerAddController.$inject = ['customer-add.service', '$location'];
 
-function CustomerAddController(customerAddService) {
+function CustomerAddController(customerAddService, $location) {
     var self = this;
 
     self.customer = {
-        firstName: '',
-        lastName: '',
-        address: '',
-        phoneNumber: '',
-        email: ''
+        firstName: null,
+        lastName: null,
+        address: null,
+        phoneNumber: null,
+        email: null
     };
 
     self.home = {
-        totalSize: 0,
-        numStories: 0,
-        numBedrooms: 0,
-        numBathrooms: 0,
-        acType: '',
-        heatingType: '',
+        totalSize: null,
+        numStories: null,
+        numBedrooms: null,
+        numBathrooms: null,
+        acType: null,
+        heatingType: null,
         installationDate: null
     };
 
@@ -39,21 +39,53 @@ function CustomerAddController(customerAddService) {
     self.acTypes = ['Central Air', 'Window Unit', 'Mini Split', 'Other'];
     self.heatTypes = ['Furnace', 'Boiler', 'Heat Pump', 'Gas', 'Other'];
 
+    self.clearCustomerInfoForm = function() {
+        self.customer.firstName = null;
+        self.customer.lastName = null;
+        self.customer.address = null;
+        self.customer.phoneNumber = null;
+        self.customer.email = null;
+    };
+
+    self.clearHomeForm = function() {
+        self.home.totalSize = null;
+        self.home.numStories = null;
+        self.home.numBedrooms = null;
+        self.home.numBathrooms = null;
+        self.home.acType = null;
+        self.home.heatingType = null;
+        self.home.installationDate = null;
+    };
 
     self.clearRoomForm = function() {
         self.room.size = null;
         self.room.numWindows = null;
         self.room.numStory = null;
-    }
+    };
 
     self.addRoom = function(room) {
-        self.rooms.push(room);
+
+        self.rooms.push({
+            size: room.size,
+            numWindows: room.numWindows,
+            numStory: room.numStory
+        });
+
         self.clearRoomForm();
-        console.log(self.rooms);
-    }
+    };
 
     self.removeRoom = function(index) {
         self.rooms.splice(index, 1);
-        console.log(self.rooms);
-    }
+    };
+
+    self.setSessionForSummary = function() {
+        if(('localStorage' in window) && window.localStorage !== null) {
+            localStorage.clear();
+            localStorage.customerInfo = JSON.stringify(self.customer);
+            localStorage.homeInfo = JSON.stringify(self.home);
+            localStorage.roomsInfo = JSON.stringify(self.rooms);
+        }
+
+        $location.path('/customer/new/summary');
+    };
 }

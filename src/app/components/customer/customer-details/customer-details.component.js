@@ -18,7 +18,7 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
         if (self.params) {
             getCustomerDetails(self.params.id, getHomeDetails);
         }
-    }
+    };
 
     var getCustomerDetails = function (id, callback) {
         customerDetailsService.getCustomerByID(id)
@@ -28,7 +28,7 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
             }, function (error) {
                 throw new Error(error);
             });
-    }
+    };
 
     var getHomeDetails = function (id) {
         customerDetailsService.getHomeByCustomerHomeId(id)
@@ -36,6 +36,6 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
                 self.house = data.data;
             }, function (err) {
                 throw new Error(err);
-            })
-    }
+            });
+    };
 }

@@ -43,4 +43,4 @@ function authenticate(req, res) {
         .catch((err) => {
             res.status(401).send(err.message);
         });
-}
+};

@@ -1,0 +1,83 @@
+<md-toolbar class="md-tall md-primary">
+    <h2 class="md-toolbar-tools">
+        <span>Customers > New > Summary</span>
+    </h2>
+</md-toolbar>
+
+<section id="customer-summary" layout="column" ng-cloak="" class="md-padding">
+    <md-content class="md-whiteframe-z1">
+        <md-list>
+            <md-subheader class="md-no-sticky">Personal Information</md-subheader>
+            <md-list-item class="noright md-2-line">
+                <div class="md-list-item-text">
+                    <h3>Name</h3>
+                    <p>{{$ctrl.customerInfo.firstName + " " + $ctrl.customerInfo.lastName}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3>Address</h3>
+                    <p>{{$ctrl.customerInfo.address}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3>Phone Number Name</h3>
+                    <p>{{$ctrl.customerInfo.phoneNumber}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3>E-mail Address</h3>
+                    <p>{{$ctrl.customerInfo.email}}</p>
+                </div>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-subheader class="md-no-sticky">Home Information</md-subheader>
+            <md-list-item class="noright md-2-line">
+                <div class="md-list-item-text">
+                    <h3>Size in Sq Ft.</h3>
+                    <p>{{$ctrl.homeInfo.totalSize}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3># of Stories</h3>
+                    <p>{{$ctrl.homeInfo.numStories}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3># of Bedrooms</h3>
+                    <p>{{$ctrl.homeInfo.numBedrooms}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3># of Bathrooms</h3>
+                    <p>{{$ctrl.homeInfo.numBathrooms}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3>AC Type</h3>
+                    <p>{{$ctrl.homeInfo.acType}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3>Heating Type</h3>
+                    <p>{{$ctrl.homeInfo.heatingType}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3>Installation Date</h3>
+                    <p>{{$ctrl.homeInfo.installationDate | date:"MM/dd/yyyy" }}</p>
+                </div>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-subheader class="md-no-sticky">Room(s) Information</md-subheader>
+            <md-list-item class="noright md-2-line" ng-repeat="room in $ctrl.rooms">
+                <div class="md-list-item-text">
+                    <h3>Size in Sq Ft.</h3>
+                    <p>{{room.size}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3># of Windows</h3>
+                    <p>{{room.numWindows}}</p>
+                </div>
+                <div class="md-list-item-text">
+                    <h3>Story #</h3>
+                    <p>{{room.numStory}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+
+    <div class="action-buttons center-button" layout="row">
+        <md-button class="md-raised md-primary" ng-click="$ctrl.save()">Submit</md-button>
+    </div>
+</section>
