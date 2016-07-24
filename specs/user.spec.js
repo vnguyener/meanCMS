@@ -18,7 +18,6 @@ describe("user service", () => {
             .then((data) => {
                 expect(data).to.not.equal(undefined);
                 assert.equal(data.email, "vunguyen@mail.com");
-                console.log(JSON.stringify(data));
                 done();
             })
 

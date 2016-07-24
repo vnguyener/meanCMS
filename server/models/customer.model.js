@@ -8,6 +8,5 @@ module.exports = mongoose.model('Customer', {
     lastName: {type: String, default: null},
     address: {type: String, default: null},
     phoneNumber: {type: String, default: null},
-    email: {type: String, default: null},
-    homeID: {type: Number, default: null}
+    email: {type: String, default: null}
 });

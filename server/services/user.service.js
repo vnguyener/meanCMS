@@ -3,11 +3,10 @@
 const mongoose = require('mongoose'),
     q = require('q'),
     config = require('../config.json'),
-    user = require('../models/user.model');
+    user = require('../models/user.model'),
+    uri = config.connectionStrings.cms;
 
-// process.env.MONGOLAB_URI
-let uri = config.connectionStrings.cms;
-
+// database connection
 mongoose.connect(uri, function (err, res) {
     if (err) {
         console.log('ERROR connecting to: ' + uri + '. ' + err);
@@ -16,15 +15,20 @@ mongoose.connect(uri, function (err, res) {
     }
 });
 
-let service = {};
+process.on('SIGINT', function() {  
+  mongoose.connection.close(function () { 
+    console.log('Mongoose default connection disconnected through app termination'); 
+    process.exit(0); 
+  }); 
+}); 
 
-service.authenticate = authenticate;
-// service.getById = getById;
-// service.update = update;
+// exports
+module.exports = {
+    authenticate: getUserByEmailPassword
+};
 
-module.exports = service;
-
-function authenticate(email, password) {
+// functions
+function getUserByEmailPassword(email, password) {
     let deferred = q.defer();
 
     user.findOne({ 'email': email, 'password': password }, (error, user) => {

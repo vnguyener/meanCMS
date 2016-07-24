@@ -5,11 +5,12 @@ angular
 CustomerListService.$inject = ['$http'];
 
 function CustomerListService($http) {
-    var factory = {};
 
-    factory.getCustomerList = function() {
-        return $http.get('/api/customers');
+    return {
+        getCustomerList: getCustomerList
     };
 
-    return factory;
+    function getCustomerList() {
+        return $http.get('/api/customers');
+    };
 };

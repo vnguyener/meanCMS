@@ -15,7 +15,16 @@ const gulp = require('gulp'),
 let config = {
     paths: {
         html: 'index.html',
-        js: ['src/app/app.js', 'src/app/components/**/*.js', 'src/app/components/**/**/*.js'],
+        js: [
+            'src/app/app.js', 
+            'src/app/components/**/*.js', 
+            'src/app/components/**/**/*.js'
+            ],
+        server: [
+            'server/*.js', 
+            'server/**/**/*.js',
+            'server/**/*.js',
+            ],
         templates: ['src/app/components/**/*.html', 'src/app/components/**/**/*.html'],
         imgs: ['src/assets/imgs/*.jpg', 'src/assets/imgs/*.png'],
         dist: 'dist',
@@ -67,7 +76,7 @@ gulp.task('imgs', () => {
 });
 
 gulp.task('lint', () => {
-    return gulp.src(config.paths.js)
+    return gulp.src(config.paths.js.concat(config.paths.server))
         .pipe(lint({ config: 'eslint.config.json' }))
         .pipe(lint.format())
         .pipe(lint.failAfterError());

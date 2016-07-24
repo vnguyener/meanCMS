@@ -1,5 +1,5 @@
 {
     "connectionStrings": {
-        "cms": "mongodb://localhost/cmd_demo"
+        "cms": "mongodb://localhost/cms_demo"
     }
 }

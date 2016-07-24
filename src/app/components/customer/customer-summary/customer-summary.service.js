@@ -5,9 +5,17 @@ angular
 CustomerSummaryService.$inject = ['$http'];
 
 function CustomerSummaryService($http) {
-    var factory = {};
+    
+    return {
+        saveHomeInfo: saveHomeInfo,
+        saveCustomerInfo: saveCustomerInfo
+    };
+    
+    function saveHomeInfo(data) {
+        return $http.post('/api/house/save', data);
+    };
 
-    //todo: save method
-
-    return factory;
+    function saveCustomerInfo (data) {
+        return $http.post('/api/customer/save', data);
+    };
 }

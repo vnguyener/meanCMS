@@ -35,11 +35,11 @@ function CustomerAddController(customerAddService, $location) {
     };
 
     self.rooms = [];
-    self.options = [1,2,3,4,5,6];
+    self.options = [1, 2, 3, 4, 5, 6];
     self.acTypes = ['Central Air', 'Window Unit', 'Mini Split', 'Other'];
     self.heatTypes = ['Furnace', 'Boiler', 'Heat Pump', 'Gas', 'Other'];
 
-    self.clearCustomerInfoForm = function() {
+    self.clearCustomerInfoForm = function () {
         self.customer.firstName = null;
         self.customer.lastName = null;
         self.customer.address = null;
@@ -47,7 +47,7 @@ function CustomerAddController(customerAddService, $location) {
         self.customer.email = null;
     };
 
-    self.clearHomeForm = function() {
+    self.clearHomeForm = function () {
         self.home.totalSize = null;
         self.home.numStories = null;
         self.home.numBedrooms = null;
@@ -57,13 +57,13 @@ function CustomerAddController(customerAddService, $location) {
         self.home.installationDate = null;
     };
 
-    self.clearRoomForm = function() {
+    self.clearRoomForm = function () {
         self.room.size = null;
         self.room.numWindows = null;
         self.room.numStory = null;
     };
 
-    self.addRoom = function(room) {
+    self.addRoom = function (room) {
 
         self.rooms.push({
             size: room.size,
@@ -74,12 +74,12 @@ function CustomerAddController(customerAddService, $location) {
         self.clearRoomForm();
     };
 
-    self.removeRoom = function(index) {
+    self.removeRoom = function (index) {
         self.rooms.splice(index, 1);
     };
 
-    self.setSessionForSummary = function() {
-        if(('localStorage' in window) && window.localStorage !== null) {
+    self.setSessionForSummary = function () {
+        if (('localStorage' in window) && window.localStorage !== null) {
             localStorage.clear();
             localStorage.customerInfo = JSON.stringify(self.customer);
             localStorage.homeInfo = JSON.stringify(self.home);

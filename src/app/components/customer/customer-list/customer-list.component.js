@@ -17,7 +17,7 @@ function CustomerListController(customerListService, $location) {
             .then(function (response) {
                 self.customers = response.data;
             }, function(err) {
-                throw new Error(err);
+                throw new Error(err.message);
             });
     };
 

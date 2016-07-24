@@ -18,9 +18,9 @@ function CustomerSummaryController(customerSummaryService, $location) {
         getInfoFromLocalStorage();
     };
 
-    self.save = function() {
-        //customerSummaryService save
-        //show toaster
+    self.save = function () {
+
+        saveCustomerInfo();
         localStorage.clear();
         $location.path('/customers');
     };
@@ -31,5 +31,34 @@ function CustomerSummaryController(customerSummaryService, $location) {
             if (localStorage.homeInfo) self.homeInfo = JSON.parse(localStorage.homeInfo);
             if (localStorage.roomsInfo) self.rooms = JSON.parse(localStorage.roomsInfo);
         }
+    };
+
+    var saveCustomerInfo = function () {
+        customerSummaryService.saveCustomerInfo(self.customerInfo)
+            .then(function (response) {
+                saveHouseInfo(response.data.id);
+            }, function (error) {
+                console.log(error);
+                throw new Error(error.message);
+            })
+
+    };
+
+    var saveHouseInfo = function (customerId) {
+
+        var reqObj = {
+            'customerId': customerId,
+            'homeInfo': self.homeInfo,
+            'roomsInfo': self.rooms
+        };
+
+        customerSummaryService.saveHomeInfo(reqObj)
+            .then(function (data) {
+
+            }, function (error) {
+                console.log(error);
+                throw new Error(error.message);
+            });
+
     };
 }

@@ -8,54 +8,52 @@ const express = require('express'),
 
 /* "/api/house"
 *   GET: finds house by id,
-*   PUT: update house by id
+*   PUT: update house by id - todo
 *   POST: creates a new house
-*   DELETE: deletes existing house by id
+*   DELETE: deletes existing house by id - todo
 */
 
-router.get('/house/:id', getHouseDetails);
-router.get('/house/:id/rooms', getRooms);
-router.post('/house/save', addHouse);
-router.put('/house/:id/edit', updateHouse);
-router.post('/house/:id/room/save', addRoom);
-
-//router.delete('/house/delete', deleteCustomerById);
+router.get('/house/:id', getHouseByCustomerId);
+router.get('/house/:id/rooms', getRoomsByHouseId);
+router.post('/house/save', saveHouse);
 
 module.exports = router;
 
-function getHouseDetails(req, res) {
-
+function getHouseByCustomerId(req, res) {
     if (req.params.id) {
-        houseService.getById(req.params.id)
+        houseService.getHouseByCustomerId(req.params.id)
             .then((data) => {
                 res.status(200).send(data);
             })
             .catch((error) => {
-                res.status(500).send(err);
+                res.sendStatus(500);
             });
     }
 };
 
-function addHouse(req, res) {
-
-};
-
-function updateHouse(req, res) {
-
-};
-
-function addRoom(req, res) {
-
-};
-
-function getRooms(req, res) {
+function getRoomsByHouseId(req, res) {
     if (req.params.id) {
-        houseService.getRooms(req.params.id)
+        houseService.getRoomsByHouseId(req.params.id)
             .then((data) => {
                 res.status(200).send(data);
             })
             .catch((error) => {
-                res.status(500).send(err);
+                res.sendStatus(500);
             });
     }
 }
+
+function saveHouse(req, res) {
+    if (req.body) {
+        houseService.saveHouseDetails(req.body)
+            .then((data) => {
+            })
+            .catch((error) => {
+                console.log(error);
+                res.sendStatus(500);
+            });
+    }
+};
+
+
+

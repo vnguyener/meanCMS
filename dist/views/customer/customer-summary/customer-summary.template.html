@@ -33,6 +33,8 @@
                     <h3>Size in Sq Ft.</h3>
                     <p>{{$ctrl.homeInfo.totalSize}}</p>
                 </div>
+            </md-list-item>
+            <md-list-item class="noright md-2-line">
                 <div class="md-list-item-text">
                     <h3># of Stories</h3>
                     <p>{{$ctrl.homeInfo.numStories}}</p>
@@ -45,8 +47,10 @@
                     <h3># of Bathrooms</h3>
                     <p>{{$ctrl.homeInfo.numBathrooms}}</p>
                 </div>
+            </md-list-item>
+            <md-list-item class="noright md-2-line">
                 <div class="md-list-item-text">
-                    <h3>AC Type</h3>Î
+                    <h3>AC Type</h3>
                     <p>{{$ctrl.homeInfo.acType}}</p>
                 </div>
                 <div class="md-list-item-text">
@@ -55,7 +59,7 @@
                 </div>
                 <div class="md-list-item-text">
                     <h3>Installation Date</h3>
-                    <p>{{$ctrl.homeInfo.installationDate | date:"MM/dd/yyyy" }}</p>Î
+                    <p>{{$ctrl.homeInfo.installationDate | date:"MM/dd/yyyy" }}</p>
                 </div>
             </md-list-item>
             <md-divider></md-divider>

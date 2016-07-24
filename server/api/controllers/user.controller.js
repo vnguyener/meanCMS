@@ -8,14 +8,11 @@ const express = require('express'),
     userService = require('../../services/user.service');
 
 /* "/api/user"
-*   GET: finds user by id, authetication or viewing purposes
-*   PUT: update user by id
+*   POST: '/user/authenticate' gets user from db sending params through body
 */
 
 
 // routes
-router.get('/user/:id', getUserById);
-router.get('/users', getUserList);
 router.post('/user/authenticate', authenticate)
 
 module.exports = router;
@@ -33,7 +30,6 @@ function authenticate(req, res) {
         .then((data) => {
             if (data) {
                 // authentication successful
-                console.log('controller res: ' + JSON.stringify(data));
                 res.status(200).send({ token: 'yes' });
             } else {
                 // authentication failed

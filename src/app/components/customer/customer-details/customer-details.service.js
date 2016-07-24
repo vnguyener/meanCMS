@@ -5,19 +5,22 @@ angular
 CustomerDetailsService.$inject = ['$http'];
 
 function CustomerDetailsService($http) {
-    var factory = {};
 
-    factory.getCustomerByID = function(id) {
+    return {
+        getCustomerByID: getCustomerByID,
+        getHomeByCustomerId: getHomeByCustomerId,
+        getRoomsByHomeId: getRoomsByHomeId
+    };
+
+    function getCustomerByID(id) {
         return $http.get('/api/customer/' + id);
     };
 
-    factory.getHomeByCustomerHomeId = function(id) {
+    function getHomeByCustomerId(id) {
         return $http.get('/api/house/' + id);
     };
 
-    factory.getRoomsByCustomerHomeId = function(id) {
+    function getRoomsByHomeId(id) {
         return $http.get('/api/house/' + id + '/rooms')
-    }
-
-    return factory;
+    };
 };

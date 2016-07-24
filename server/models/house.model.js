@@ -3,7 +3,8 @@
 const mongoose = require('mongoose');
 
 module.exports = mongoose.model('House', {
-    id: {type: Number, default: null },
+    homeID: {type: Number, default: null },
+    customerID: {type: Number, default: null},
     totalSize: {type: Number, default: null},
     numStories: {type: Number, default: null},
     numBedrooms: {type: Number, default: null},

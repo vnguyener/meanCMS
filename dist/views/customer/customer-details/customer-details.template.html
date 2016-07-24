@@ -1,6 +1,6 @@
 <md-toolbar class="md-tall md-primary">
     <h2 class="md-toolbar-tools">
-        <span>Customers > {{$ctrl.customer.firstName + " " + $ctrl.customer.lastName}} > Details</span>
+        <span> <a href="/#/customers">Customers</a> > {{$ctrl.customer.firstName + " " + $ctrl.customer.lastName}} > Details</span>
     </h2>
 </md-toolbar>
 
@@ -34,33 +34,56 @@
                 <md-button>Forward</md-button>
             </md-card-actions>
             <md-card-content>
-                    <span class="md-headline">Home Information</span>
-                    <span class="md-subhead">
-                        <p>Total Size in SQ Ft.</p>
+                <span class="md-headline">Home Information</span>
+                <md-list-item class="noright md-2-line">
+                    <div class="md-list-item-text">
+                        <h3>Size in Sq Ft.</h3>
                         <p>{{$ctrl.house.totalSize}}</p>
-                        <p># of Stories</p>
+                    </div>
+                </md-list-item>
+                <md-list-item class="noright md-2-line">
+                    <div class="md-list-item-text">
+                        <h3># of Stories</h3>
                         <p>{{$ctrl.house.numStories}}</p>
-                        <p># of Bedrooms</p>
+                    </div>
+                    <div class="md-list-item-text">
+                        <h3># of Bedrooms</h3>
                         <p>{{$ctrl.house.numBedrooms}}</p>
-                        <p># of Bathrooms</p>
+                    </div>
+                    <div class="md-list-item-text">
+                        <h3># of Bathrooms</h3>
                         <p>{{$ctrl.house.numBathrooms}}</p>
-                        <p>AC Type</p>
+                    </div>
+                </md-list-item>
+                <md-list-item class="noright md-2-line">
+                    <div class="md-list-item-text">
+                        <h3>AC Type</h3>
                         <p>{{$ctrl.house.acType}}</p>
-                        <p>Heating Type</p>
+                    </div>
+                    <div class="md-list-item-text">
+                        <h3>Heating Type</h3>
                         <p>{{$ctrl.house.heatingType}}</p>
-                        <p>Installation Date</p>
+                    </div>
+                    <div class="md-list-item-text">
+                        <h3>Installation Date</h3>
                         <p>{{$ctrl.house.installationDate | date:"MM/dd/yyyy" }}</p>
-                    </span>
-                    <md-divider></md-divider>
-                    <span class="md-headline">Room(s) Information</span>
-                    <span class="md-subhead" ng-if="$ctrl.rooms.length > 0" ng-repeat="room in $ctrl.rooms">
-                        <p>Size</p>
+                    </div>
+                </md-list-item>
+                <span class="md-headline">Room(s) Information</span>
+                <md-list-item class="noright md-2-line" ng-repeat="room in $ctrl.rooms">
+                    <div class="md-list-item-text">
+                        <h3>Size in Sq Ft.</h3>
                         <p>{{room.size}}</p>
-                        <p>Story #</p>
-                        <p>{{room.numStory}}</p>
-                        <p># of Windows</p>
+                    </div>
+                    <div class="md-list-item-text">
+                        <h3># of Windows</h3>
                         <p>{{room.numWindows}}</p>
-                    </span>
+                    </div>
+                    <div class="md-list-item-text">
+                        <h3>Story #</h3>
+                        <p>{{room.numStory}}</p>
+                    </div>
+                </md-list-item>
             </md-card-content>
         </md-card>
     </div>

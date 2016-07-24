@@ -4,10 +4,10 @@ const mongoose = require('mongoose'),
     q = require('q'),
     config = require('../config.json'),
     house = require('../models/house.model'),
-    room = require('../models/room.model');
+    room = require('../models/room.model'),
+    uri = config.connectionStrings.cms;
 
-let uri = config.connectionStrings.cms;
-
+// database connection
 mongoose.connect(uri, function (err, res) {
     if (err) {
         console.log('ERROR connecting to: ' + uri + '. ' + err);
@@ -16,23 +16,24 @@ mongoose.connect(uri, function (err, res) {
     }
 });
 
-let service = {};
+process.on('SIGINT', function() {  
+  mongoose.connection.close(function () { 
+    console.log('Mongoose default connection disconnected through app termination'); 
+    process.exit(0); 
+  }); 
+}); 
 
-service.add = addHouse;
-service.getById = getHouseDetailsById;
-service.getRooms = getRoomsByHouseId;
-service.update = updateHouseDetailsById;
+// exports
+module.exports = {
+    saveHouseDetails: saveHouseDetails,
+    getHouseByCustomerId: getHouseByCustomerId,
+    getRoomsByHouseId: getRoomsByHouseId
+};
 
-module.exports = service;
-
-function addHouse() {
-
-}
-
-function getHouseDetailsById(id) {
+// functions
+function getHouseByCustomerId(id) {
     let deferred = q.defer();
-    
-    house.findOne({'id': id}, (error, details) => {
+    house.findOne({ 'customerID': id }, (error, details) => {
         if (error) {
             deferred.reject(error);
         }
@@ -40,7 +41,7 @@ function getHouseDetailsById(id) {
             deferred.resolve(details);
         }
         else {
-            deferred.reject({message: 'Internal Server Error'});
+            deferred.reject({ message: 'Internal Server Error' });
         }
     });
 
@@ -49,8 +50,7 @@ function getHouseDetailsById(id) {
 
 function getRoomsByHouseId(id) {
     let deferred = q.defer();
-
-    room.find({homeID: id}, (error, rooms) => {
+    room.find({ 'homeID': id }, (error, rooms) => {
         if (error) {
             deferred.reject(error);
         }
@@ -58,13 +58,61 @@ function getRoomsByHouseId(id) {
             deferred.resolve(rooms);
         }
         else {
-            deferred.reject({message: 'Internal Server Error'});
+            deferred.reject({ message: 'Internal Server Error' });
         }
     });
 
     return deferred.promise;
 }
 
-function updateHouseDetailsById() {
+function saveHouseDetails(obj) {
+    let deferred = q.defer();
 
+    let newHouse = new house({
+        homeID: null,
+        customerID: obj.customerId,
+        totalSize: obj.homeInfo.totalSize,
+        numStories: obj.homeInfo.numStories,
+        numBedrooms: obj.homeInfo.numBedrooms,
+        numBathrooms: obj.homeInfo.numBathrooms,
+        acType: obj.homeInfo.acType,
+        heatingType: obj.homeInfo.heatingType,
+        installationDate: obj.homeInfo.installationDate
+    });
+
+    house.findOne().sort('-homeID').limit(1).exec((error, house) => {
+        newHouse.homeID = house.homeID + 1;
+        newHouse.save((error, res) => {
+            if (error) {
+                console.log(error);
+                deferred.reject({ message: 'Error on saveHouseDetails' });
+            }
+            else {
+                if (obj.roomsInfo) {
+                    saveRooms(res.homeID, obj.roomsInfo);
+                }
+                deferred.resolve({ message: 'Save Successful.' });
+            }
+        });
+    });
+
+    return deferred.promise;
 };
+
+function saveRooms(homeID, rooms) {
+    rooms.forEach((obj) => {
+        let newRoom = new room({
+            homeID: homeID,
+            size: obj.size,
+            numWindows: obj.numWindows,
+            numStory: obj.numStory
+        });
+
+        newRoom.save((error, res) => {
+            if (error) {
+                return error;
+            } else {
+            }
+        });
+    });
+}
