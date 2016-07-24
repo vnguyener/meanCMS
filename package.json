@@ -4,7 +4,7 @@
   "description": "management system to gather customer housing data",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "sudo node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vu Nguyen",
