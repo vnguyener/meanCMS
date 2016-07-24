@@ -1,8 +1,8 @@
 "use strict"
 
-const express = require('express'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override');
+const express = require("express"),
+    bodyParser = require("body-parser"),
+    methodOverride = require("method-override");
 
 let server = function (config) {
     config = config || {};
@@ -22,7 +22,7 @@ let server = function (config) {
         self.express = express();
         self.express.use(bodyParser.urlencoded({ extended: true }));
         self.express.use(bodyParser.json());
-        self.express.use(methodOverride('X-HTTP-Method-Override'));
+        self.express.use(methodOverride("X-HTTP-Method-Override"));
         self.express.use(express.static("dist"));
 
         // Start the server listening
@@ -30,9 +30,9 @@ let server = function (config) {
         let instance = self.express.listen(config.port);
 
         //configure routes
-        require('./api/index')(self.express); // configure our routes
+        require("./api/index")(self.express); // configure our routes
 
-        self.log('magic happens on localhost:' + config.port);
+        self.log("magic happens on localhost:" + config.port);
 
         return instance;
     };

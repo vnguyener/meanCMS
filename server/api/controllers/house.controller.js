@@ -1,10 +1,10 @@
 "use strict"
 
-const express = require('express'),
+const express = require("express"),
     router = express.Router(),
-    https = require('https'),
-    http = require('http'),
-    houseService = require('../../services/house.service');
+    https = require("https"),
+    http = require("http"),
+    houseService = require("../../services/house.service");
 
 /* "/api/house"
 *   GET: finds house by id,
@@ -13,9 +13,9 @@ const express = require('express'),
 *   DELETE: deletes existing house by id - todo
 */
 
-router.get('/house/:id', getHouseByCustomerId);
-router.get('/house/:id/rooms', getRoomsByHouseId);
-router.post('/house/save', saveHouse);
+router.get("/house/:id", getHouseByCustomerId);
+router.get("/house/:id/rooms", getRoomsByHouseId);
+router.post("/house/save", saveHouse);
 
 module.exports = router;
 

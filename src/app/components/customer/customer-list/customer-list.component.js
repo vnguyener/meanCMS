@@ -1,11 +1,11 @@
 angular
-    .module('main')
-    .component('customerList', {
-        templateUrl: 'views/customer/customer-list/customer-list.template.html',
+    .module("main")
+    .component("customerList", {
+        templateUrl: "views/customer/customer-list/customer-list.template.html",
         controller: CustomerListController
     });
 
-CustomerListController.$inject = ['customer-list.service', '$location'];
+CustomerListController.$inject = ["customer-list.service", "$location"];
 
 function CustomerListController(customerListService, $location) {
     var self = this;
@@ -22,10 +22,10 @@ function CustomerListController(customerListService, $location) {
     };
 
     self.viewCustomerDetails = function (id) {
-        $location.path('/customer/' + id);
+        $location.path("/customer/" + id);
     };
 
     self.addNewCustomer = function () {
-        $location.path('/customer/new');
+        $location.path("/customer/new");
     };
 };

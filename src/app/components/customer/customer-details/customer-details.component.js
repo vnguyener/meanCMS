@@ -1,11 +1,11 @@
 angular
-    .module('main')
-    .component('customerDetails', {
-        templateUrl: 'views/customer/customer-details/customer-details.template.html',
+    .module("main")
+    .component("customerDetails", {
+        templateUrl: "views/customer/customer-details/customer-details.template.html",
         controller: CustomerDetailsController
     });
 
-CustomerDetailsController.$inject = ['customer-details.service', '$routeParams'];
+CustomerDetailsController.$inject = ["customer-details.service", "$routeParams"];
 
 function CustomerDetailsController(customerDetailsService, $routeParams) {
     var self = this;

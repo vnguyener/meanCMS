@@ -1,11 +1,11 @@
 angular
-    .module('main')
-    .component('customerAdd', {
-        templateUrl: 'views/customer/customer-add/customer-add.template.html',
+    .module("main")
+    .component("customerAdd", {
+        templateUrl: "views/customer/customer-add/customer-add.template.html",
         controller: CustomerAddController
     });
 
-CustomerAddController.$inject = ['customer-add.service', '$location'];
+CustomerAddController.$inject = ["customer-add.service", "$location"];
 
 function CustomerAddController(customerAddService, $location) {
     var self = this;
@@ -36,8 +36,8 @@ function CustomerAddController(customerAddService, $location) {
 
     self.rooms = [];
     self.options = [1, 2, 3, 4, 5, 6];
-    self.acTypes = ['Central Air', 'Window Unit', 'Mini Split', 'Other'];
-    self.heatTypes = ['Furnace', 'Boiler', 'Heat Pump', 'Gas', 'Other'];
+    self.acTypes = ["Central Air", "Window Unit", "Mini Split", "Other"];
+    self.heatTypes = ["Furnace", "Boiler", "Heat Pump", "Gas", "Other"];
 
     self.clearCustomerInfoForm = function () {
         self.customer.firstName = null;
@@ -79,13 +79,13 @@ function CustomerAddController(customerAddService, $location) {
     };
 
     self.setSessionForSummary = function () {
-        if (('localStorage' in window) && window.localStorage !== null) {
+        if (("localStorage" in window) && window.localStorage !== null) {
             localStorage.clear();
             localStorage.customerInfo = JSON.stringify(self.customer);
             localStorage.homeInfo = JSON.stringify(self.home);
             localStorage.roomsInfo = JSON.stringify(self.rooms);
         }
 
-        $location.path('/customer/new/summary');
+        $location.path("/customer/new/summary");
     };
 }

@@ -1,6 +1,6 @@
 angular
-    .module('main')
-    .factory('utils.service', UtilsService)
+    .module("main")
+    .factory("utils.service", UtilsService)
 
 UtilsService.$inject = [];
 

@@ -1,19 +1,19 @@
 "use strict"
 
-const express = require('express'),
+const express = require("express"),
     router = express.Router(),
-    https = require('https'),
-    http = require('http'),
-    utils = require('../../common/utils'),
-    userService = require('../../services/user.service');
+    https = require("https"),
+    http = require("http"),
+    utils = require("../../common/utils"),
+    userService = require("../../services/user.service");
 
 /* "/api/user"
-*   POST: '/user/authenticate' gets user from db sending params through body
+*   POST: "/user/authenticate" gets user from db sending params through body
 */
 
 
 // routes
-router.post('/user/authenticate', authenticate)
+router.post("/user/authenticate", authenticate)
 
 module.exports = router;
 
@@ -30,7 +30,7 @@ function authenticate(req, res) {
         .then((data) => {
             if (data) {
                 // authentication successful
-                res.status(200).send({ token: 'yes' });
+                res.status(200).send({ token: "yes" });
             } else {
                 // authentication failed
                 res.sendStatus(401);

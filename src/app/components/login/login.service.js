@@ -1,8 +1,8 @@
 angular
-  .module('main')
-  .factory('login.service', LoginService);
+  .module("main")
+  .factory("login.service", LoginService);
 
-LoginService.$inject = ['$http'];
+LoginService.$inject = ["$http"];
 
 function LoginService($http) {
 
@@ -11,6 +11,6 @@ function LoginService($http) {
   };
 
   function login(email, password) {
-    return $http.post('/api/user/authenticate', { email: email, password: password });
+    return $http.post("/api/user/authenticate", { email: email, password: password });
   };
 }

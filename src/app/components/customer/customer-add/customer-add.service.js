@@ -1,8 +1,8 @@
 angular
-    .module('main')
-    .factory('customer-add.service', CustomerAddService);
+    .module("main")
+    .factory("customer-add.service", CustomerAddService);
 
-CustomerAddService.$inject = ['$http'];
+CustomerAddService.$inject = ["$http"];
 
 function CustomerAddService($http) {
 

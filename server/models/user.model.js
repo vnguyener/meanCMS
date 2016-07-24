@@ -1,8 +1,8 @@
 "use strict"
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-module.exports = mongoose.model('User', {
+module.exports = mongoose.model("User", {
     id: {type: Number, default: null },
     firstName: {type: String, default: null},
     lastName: {type: String, default: null},

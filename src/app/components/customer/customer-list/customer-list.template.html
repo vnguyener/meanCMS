@@ -14,8 +14,12 @@
     <md-content class="md-whiteframe-z3">
         <md-list>
             <md-subheader class="md-no-sticky">Current Customers</md-subheader>
-            <md-list-item ng-repeat="customer in $ctrl.customers" class="noright">
-                <p>{{ customer.firstName + " " + customer.lastName }}, {{ customer.address }}</p>
+            <md-list-item ng-repeat="customer in $ctrl.customers" class="md-2-line noright">
+                <md-icon class="md-avatar-icon"></md-icon>
+                <div class="md-list-item-text">
+                    <h3>{{ customer.firstName + " " + customer.lastName }}</h3>
+                    <p>{{ customer.address }}</p>
+                </div>
                 <md-button class="md-secondary" ng-click="$ctrl.viewCustomerDetails(customer.id)">More Info</md-button>
             </md-list-item>
         </md-list>

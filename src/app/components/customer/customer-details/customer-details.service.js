@@ -1,8 +1,8 @@
 angular
-    .module('main')
-    .factory('customer-details.service', CustomerDetailsService);
+    .module("main")
+    .factory("customer-details.service", CustomerDetailsService);
 
-CustomerDetailsService.$inject = ['$http'];
+CustomerDetailsService.$inject = ["$http"];
 
 function CustomerDetailsService($http) {
 
@@ -13,14 +13,14 @@ function CustomerDetailsService($http) {
     };
 
     function getCustomerByID(id) {
-        return $http.get('/api/customer/' + id);
+        return $http.get("/api/customer/" + id);
     };
 
     function getHomeByCustomerId(id) {
-        return $http.get('/api/house/' + id);
+        return $http.get("/api/house/" + id);
     };
 
     function getRoomsByHomeId(id) {
-        return $http.get('/api/house/' + id + '/rooms')
+        return $http.get("/api/house/" + id + "/rooms")
     };
 };

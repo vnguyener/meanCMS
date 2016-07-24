@@ -90,7 +90,8 @@ gulp.task('watch', () => {
 });
 
 gulp.task('test', () => {
-    gulp.src('specs/*.spec.js')
+    // spec/*.js
+    gulp.src('specs/house.spec.js')
         .pipe(mocha());
 });
 

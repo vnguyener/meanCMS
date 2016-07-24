@@ -1,8 +1,8 @@
 angular
-    .module('main')
-    .factory('customer-list.service', CustomerListService);
+    .module("main")
+    .factory("customer-list.service", CustomerListService);
 
-CustomerListService.$inject = ['$http'];
+CustomerListService.$inject = ["$http"];
 
 function CustomerListService($http) {
 
@@ -11,6 +11,6 @@ function CustomerListService($http) {
     };
 
     function getCustomerList() {
-        return $http.get('/api/customers');
+        return $http.get("/api/customers");
     };
 };

@@ -1,10 +1,10 @@
 "use strict"
 
-const express = require('express'),
+const express = require("express"),
     router = express.Router(),
-    https = require('https'),
-    http = require('http'),
-    customerService = require('../../services/customer.service');
+    https = require("https"),
+    http = require("http"),
+    customerService = require("../../services/customer.service");
 
 /* "/api/customers"
 *   GET: gets all customers
@@ -17,11 +17,11 @@ const express = require('express'),
 *   DELETE: deletes existing customer by id - todo
 */
 
-router.get('/customers', getCustomers);
-router.get('/customer/:id', getCustomerById);
-router.put('/customer/:id/edit', updateCustomerById);
-router.post('/customer/save', createNewCustomer);
-router.delete('/customer/delete', deleteCustomerById);
+router.get("/customers", getCustomers);
+router.get("/customer/:id", getCustomerById);
+router.put("/customer/:id/edit", updateCustomerById);
+router.post("/customer/save", createNewCustomer);
+router.delete("/customer/delete", deleteCustomerById);
 
 module.exports = router;
 

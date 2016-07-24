@@ -1,23 +1,23 @@
 "use strict"
 
-const mongoose = require('mongoose'),
-    q = require('q'),
-    config = require('../config.json'),
-    customer = require('../models/customer.model'),
+const mongoose = require("mongoose"),
+    q = require("q"),
+    config = require("../config.json"),
+    customer = require("../models/customer.model"),
     uri = config.connectionStrings.cms;
 
 // database connection
 mongoose.connect(uri, function (err, res) {
     if (err) {
-        console.log('ERROR connecting to: ' + uri + '. ' + err);
+        console.log("ERROR connecting to: " + uri + ". " + err);
     } else {
-        console.log('Succeeded connected to: ' + uri);
+        console.log("Succeeded connected to: " + uri);
     }
 });
 
-process.on('SIGINT', function() {  
+process.on("SIGINT", function() {  
   mongoose.connection.close(function () { 
-    console.log('Mongoose default connection disconnected on app termination.'); 
+    console.log("Mongoose default connection disconnected on app termination."); 
     process.exit(0); 
   }); 
 }); 
@@ -32,7 +32,7 @@ module.exports = {
 // functions
 function getById(id) {
     let deferred = q.defer();
-    customer.findOne({ 'id': id }, (error, customer) => {
+    customer.findOne({ "id": id }, (error, customer) => {
         if (error) {
             console.log(error);
             deferred.reject(error);
@@ -41,7 +41,7 @@ function getById(id) {
             deferred.resolve(customer);
         }
         else {
-            deferred.reject({ message: 'Internal Server Error' });
+            deferred.reject({ message: "Internal Server Error" });
         }
     });
     return deferred.promise;
@@ -63,8 +63,8 @@ function getAllCustomers() {
     return deferred.promise;
 };
 
-// createCustomer grabs last customer documents's id and increments it
-// this isn't as efficient as I'd like until I put a sequence table increment
+// createCustomer grabs last customer documents"s id and increments it
+// this isn"t as efficient as I"d like until I put a sequence table increment
 
 function createCustomer(obj) {
     let deferred = q.defer();
@@ -78,7 +78,7 @@ function createCustomer(obj) {
         email: obj.email
     });
 
-    customer.findOne().sort('-id').limit(1).exec((error, customer) => {
+    customer.findOne().sort("-id").limit(1).exec((error, customer) => {
         newCustomer.id = customer.id + 1;
         newCustomer.save((error, res) => {
             if (error) {

@@ -1,24 +1,24 @@
 "use strict"
 
-const mongoose = require('mongoose'),
-    q = require('q'),
-    config = require('../config.json'),
-    house = require('../models/house.model'),
-    room = require('../models/room.model'),
+const mongoose = require("mongoose"),
+    q = require("q"),
+    config = require("../config.json"),
+    house = require("../models/house.model"),
+    room = require("../models/room.model"),
     uri = config.connectionStrings.cms;
 
 // database connection
 mongoose.connect(uri, function (err, res) {
     if (err) {
-        console.log('ERROR connecting to: ' + uri + '. ' + err);
+        console.log("ERROR connecting to: " + uri + ". " + err);
     } else {
-        console.log('Succeeded connected to: ' + uri);
+        console.log("Succeeded connected to: " + uri);
     }
 });
 
-process.on('SIGINT', function() {  
+process.on("SIGINT", function() {  
   mongoose.connection.close(function () { 
-    console.log('Mongoose default connection disconnected through app termination'); 
+    console.log("Mongoose default connection disconnected through app termination"); 
     process.exit(0); 
   }); 
 }); 
@@ -33,7 +33,7 @@ module.exports = {
 // functions
 function getHouseByCustomerId(id) {
     let deferred = q.defer();
-    house.findOne({ 'customerID': id }, (error, details) => {
+    house.findOne({ "customerID": id }, (error, details) => {
         if (error) {
             deferred.reject(error);
         }
@@ -41,7 +41,7 @@ function getHouseByCustomerId(id) {
             deferred.resolve(details);
         }
         else {
-            deferred.reject({ message: 'Internal Server Error' });
+            deferred.reject({ message: "Internal Server Error" });
         }
     });
 
@@ -50,7 +50,7 @@ function getHouseByCustomerId(id) {
 
 function getRoomsByHouseId(id) {
     let deferred = q.defer();
-    room.find({ 'homeID': id }, (error, rooms) => {
+    room.find({ "homeID": id }, (error, rooms) => {
         if (error) {
             deferred.reject(error);
         }
@@ -58,7 +58,7 @@ function getRoomsByHouseId(id) {
             deferred.resolve(rooms);
         }
         else {
-            deferred.reject({ message: 'Internal Server Error' });
+            deferred.reject({ message: "Internal Server Error" });
         }
     });
 
@@ -80,18 +80,18 @@ function saveHouseDetails(obj) {
         installationDate: obj.homeInfo.installationDate
     });
 
-    house.findOne().sort('-homeID').limit(1).exec((error, house) => {
+    house.findOne().sort("-homeID").limit(1).exec((error, house) => {
         newHouse.homeID = house.homeID + 1;
         newHouse.save((error, res) => {
             if (error) {
                 console.log(error);
-                deferred.reject({ message: 'Error on saveHouseDetails' });
+                deferred.reject({ message: "Error on saveHouseDetails" });
             }
             else {
                 if (obj.roomsInfo) {
                     saveRooms(res.homeID, obj.roomsInfo);
                 }
-                deferred.resolve({ message: 'Save Successful.' });
+                deferred.resolve({ message: "Save Successful." });
             }
         });
     });
