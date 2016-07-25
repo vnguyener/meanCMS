@@ -1,8 +1,8 @@
 # README
 
 ## Summary
-Simple CMS application using the MEAN stack.
 
+Simple CMS application using the MEAN stack.
 
 ## Structure
 
