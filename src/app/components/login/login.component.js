@@ -19,13 +19,14 @@ function LoginController(loginService, $location) {
 
     self.login = function () {
         loginService.login(self.email, self.password)
-            .then(function () {
+            .then(function (response) {
                 self.errorMessage = "";
                 $location.path("/customers");
-            }, function (err) {
+            })
+            .catch(function(error) {
                 self.email = "";
                 self.password = "";
-                self.errorMessage = err.data;
+                self.errorMessage = error.data.reason;
             });
     };
 }

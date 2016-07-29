@@ -13,30 +13,36 @@ const express = require("express"),
 
 
 // routes
-router.post("/user/authenticate", authenticate)
+router.get("/user/:id", getUserById);
+router.post("/user/authenticate", authenticate);
+
 
 module.exports = router;
 
-function getUserList() {
-    return true; 
-};
-
 function getUserById(req, res) {
-    return true;
+    userService.getUserById(req.params.id)
+        .then((data) => {
+            if (data) {
+                res.status(200).send(data);
+            }
+        })
+        .catch((error) => {
+            res.status(500);
+        });
 };
 
 function authenticate(req, res) {
-    userService.authenticate(req.body.email, req.body.password)
+    userService.authenticateUser(req.body.email, req.body.password)
         .then((data) => {
-            if (data) {
-                // authentication successful
-                res.status(200).send({ token: "yes" });
+            if (data.id) {
+                // if user.id exists
+                res.status(200).send({ "message": "success" });
             } else {
-                // authentication failed
-                res.sendStatus(401);
+                // if not throw a 401
+                res.status(401).send({ "reason": data.message });
             }
         })
-        .catch((err) => {
-            res.status(401).send(err.message);
+        .catch((error) => {
+            res.status(500).send(error);
         });
 };

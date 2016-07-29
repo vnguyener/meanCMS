@@ -15,31 +15,55 @@ mongoose.connect(uri, function (err, res) {
     }
 });
 
-process.on("SIGINT", function() {  
-  mongoose.connection.close(function () { 
-    console.log("Mongoose default connection disconnected through app termination"); 
-    process.exit(0); 
-  }); 
-}); 
+process.on("SIGINT", function () {
+    mongoose.connection.close(function () {
+        console.log("Mongoose default connection disconnected through app termination");
+        process.exit(0);
+    });
+});
 
 // exports
 module.exports = {
-    authenticate: getUserByEmailPassword
+    authenticateUser: authenticateUser,
+    getUserById: getUserById
 };
 
 // functions
-function getUserByEmailPassword(email, password) {
+function authenticateUser(email, password) {
     let deferred = q.defer();
 
-    user.findOne({ "email": email, "password": password }, (error, user) => {
+    user.findOne({ "email": email }, (error, user) => {
         if (error) {
             deferred.reject(error);
         }
-        else if (user) {
-            deferred.resolve(user);
+
+        if (user) {
+            let isValidPassword = user.isValidPassword(password);
+            if (!isValidPassword) {
+                deferred.resolve({ message: "UnauthorizedError: Invalid email and/or password." })
+            } 
+            else {
+                deferred.resolve(user);
+            }
         }
         else {
-            deferred.reject({message: "Invalid email and/or password."})
+            deferred.resolve({ message: "UnauthorizedError: Invalid email and/or password." })
+        }
+    });
+
+    return deferred.promise;
+};
+
+function getUserById(id) {
+    let deferred = q.defer();
+
+    user.findOne({ "id": id }, (error, user) => {
+        if (error) {
+            deferred.reject(error);
+        }
+
+        if (user) {
+            deferred.resolve(user);
         }
     });
 
