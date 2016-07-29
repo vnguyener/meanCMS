@@ -1,4 +1,4 @@
-# README
+# CMS w/ MEAN
 
 ## Summary
 
