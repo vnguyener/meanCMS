@@ -25,29 +25,24 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
     var getCustomerDetails = function (id) {
         customerDetailsService.getCustomerByID(id)
             .then(function (response) {
-                self.customer = response.data;
+                self.customer = response;
                 getHomeDetails(self.customer.id, getRooms);
-            }, function (err) {
-                throw new Error(err.message);
             });
     };
 
     var getHomeDetails = function (id, callback) {
         customerDetailsService.getHomeByCustomerId(id)
             .then(function (response) {
-                self.house = response.data;
-                callback(self.house.homeID);
-            }, function (err) {
-                throw new Error(err.message);
+                self.house = response;
+                callback(self.house.id);
             });
     };
 
     var getRooms = function (id) {
         customerDetailsService.getRoomsByHomeId(id)
             .then(function (response) {
-                self.rooms = response.data;
-            }, function (err) {
-                throw new Error(err.message);
+                self.rooms = response;
+                console.log(self.rooms);
             });
     }
 }

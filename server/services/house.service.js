@@ -16,18 +16,19 @@ mongoose.connect(uri, function (err, res) {
     }
 });
 
-process.on("SIGINT", function() {  
-  mongoose.connection.close(function () { 
-    console.log("Mongoose default connection disconnected through app termination"); 
-    process.exit(0); 
-  }); 
-}); 
+process.on("SIGINT", function () {
+    mongoose.connection.close(function () {
+        console.log("Mongoose default connection disconnected through app termination");
+        process.exit(0);
+    });
+});
 
 // exports
 module.exports = {
-    saveHouseDetails: saveHouseDetails,
+    createNewHouse: createNewHouse,
     getHouseByCustomerId: getHouseByCustomerId,
-    getRoomsByHouseId: getRoomsByHouseId
+    getRoomsByHouseId: getRoomsByHouseId,
+    updateHouseDetails: updateHouseDetails
 };
 
 // functions
@@ -50,7 +51,7 @@ function getHouseByCustomerId(id) {
 
 function getRoomsByHouseId(id) {
     let deferred = q.defer();
-    room.find({ "homeID": id }, (error, rooms) => {
+    room.find({ "id": id }, (error, rooms) => {
         if (error) {
             deferred.reject(error);
         }
@@ -65,11 +66,11 @@ function getRoomsByHouseId(id) {
     return deferred.promise;
 }
 
-function saveHouseDetails(obj) {
+function createNewHouse(obj) {
     let deferred = q.defer();
 
     let newHouse = new house({
-        homeID: null,
+        id: null,
         customerID: obj.customerId,
         totalSize: obj.homeInfo.totalSize,
         numStories: obj.homeInfo.numStories,
@@ -80,8 +81,9 @@ function saveHouseDetails(obj) {
         installationDate: obj.homeInfo.installationDate
     });
 
-    house.findOne().sort("-homeID").limit(1).exec((error, house) => {
-        newHouse.homeID = house.homeID + 1;
+    house.findOne().sort("-id").limit(1).exec((error, house) => {
+        newHouse.id = ((house === null) ? 1 : house.id + 1);
+        
         newHouse.save((error, res) => {
             if (error) {
                 console.log(error);
@@ -89,7 +91,7 @@ function saveHouseDetails(obj) {
             }
             else {
                 if (obj.roomsInfo) {
-                    saveRooms(res.homeID, obj.roomsInfo);
+                    saveRooms(res.id, obj.roomsInfo);
                 }
                 deferred.resolve({ message: "Save Successful." });
             }
@@ -99,20 +101,94 @@ function saveHouseDetails(obj) {
     return deferred.promise;
 };
 
-function saveRooms(homeID, rooms) {
+function updateHouseDetails(id, obj) {
+    let deferred = q.defer;
+
+    house.findOneAndUpdate(
+        { "id": id },
+        {
+            $set: {
+                customerID: obj.customerId,
+                totalSize: obj.homeInfo.totalSize,
+                numStories: obj.homeInfo.numStories,
+                numBedrooms: obj.homeInfo.numBedrooms,
+                numBathrooms: obj.homeInfo.numBathrooms,
+                acType: obj.homeInfo.acType,
+                heatingType: obj.homeInfo.heatingType,
+                installationDate: obj.homeInfo.installationDate
+            }
+        },
+        {
+            upsert: false,
+            returnNewDocument: true
+        },
+        (err, updatedHouse) => {
+            if (err) {
+                console.log(error);
+                deferred.reject(error);
+            };
+
+            if (updatedHouse) {
+                updateRooms(obj.rooms);
+                deferred.resolve({ message: "Update Successful." });
+            };
+        });
+
+    return deferred.promise;
+}
+
+function saveRooms(id, rooms) {
     rooms.forEach((obj) => {
+
         let newRoom = new room({
-            homeID: homeID,
+            id: null,
+            alias: obj.alias,
+            homeID: id,
             size: obj.size,
             numWindows: obj.numWindows,
             numStory: obj.numStory
         });
 
-        newRoom.save((error, res) => {
-            if (error) {
-                return error;
-            } else {
-            }
+        room.findOne().sort("-id").limit(1).exec((error, room) => {
+            newRoom.id = ((room === null) ? 1 : room.id + 1);
+            
+            newRoom.save((error, res) => {
+                if (error) {
+                    return error;
+                } else {
+                    return res;
+                }
+            });
         });
+    });
+};
+
+function updateRooms(homeID, rooms) {
+    rooms.forEach((obj) => {
+        room.findOneAndUpdate(
+            { "id": obj.id },
+            {
+                $set: {
+                    alias: obj.alias,
+                    homeID: homeID,
+                    size: obj.size,
+                    numWindows: obj.numWindows,
+                    numStory: obj.numStory
+                }
+            },
+            {
+                upsert: false,
+                returnNewDocument: true
+            },
+            (err, updatedRoom) => {
+                if (error) {
+                    console.log(error);
+                    return error;
+                }
+
+                if (updatedRoom) {
+                    return updatedRoom;
+                }
+            });
     });
 }

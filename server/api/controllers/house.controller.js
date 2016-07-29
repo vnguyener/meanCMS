@@ -15,7 +15,8 @@ const express = require("express"),
 
 router.get("/house/:id", getHouseByCustomerId);
 router.get("/house/:id/rooms", getRoomsByHouseId);
-router.post("/house/save", saveHouse);
+router.put("/house/:id/edit", updateHouseDetails)
+router.post("/house/save", saveHouseDetails);
 
 module.exports = router;
 
@@ -41,19 +42,28 @@ function getRoomsByHouseId(req, res) {
                 res.sendStatus(500);
             });
     }
-}
+};
 
-function saveHouse(req, res) {
+function saveHouseDetails(req, res) {
     if (req.body) {
-        houseService.saveHouseDetails(req.body)
+        houseService.createNewHouse(req.body)
             .then((data) => {
+                res.sendStatus(200);
             })
             .catch((error) => {
-                console.log(error);
                 res.sendStatus(500);
             });
     }
 };
 
-
-
+function updateHouseDetails(req, res) {
+    if (req.params.id && req.body) {
+        houseService.updateHouseDetails(req.params.id , req.body)
+            .then((data) => {
+                res.sendStatus(200);
+            })
+            .catch((error) => {
+                res.sendStatus(500);
+            });
+    }
+};

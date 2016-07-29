@@ -13,11 +13,13 @@ function CustomerListController(customerListService, $location) {
     self.customers = [];
 
     self.$onInit = function () {
+        self.getCustomerList();
+    };
+
+    self.getCustomerList = function () {
         customerListService.getCustomerList()
             .then(function (response) {
-                self.customers = response.data;
-            }, function(err) {
-                throw new Error(err.message);
+                self.customers = response;
             });
     };
 

@@ -3,7 +3,7 @@
 const server = require('./server/server');
 
 server.start({
-    port: 80,
+    port: 9000,
     preRequest: function(json, req, res) {
         console.log('preRequest Fired');
     },

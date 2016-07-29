@@ -15,18 +15,20 @@ mongoose.connect(uri, function (err, res) {
     }
 });
 
-process.on("SIGINT", function() {  
-  mongoose.connection.close(function () { 
-    console.log("Mongoose default connection disconnected on app termination."); 
-    process.exit(0); 
-  }); 
-}); 
+process.on("SIGINT", function () {
+    mongoose.connection.close(function () {
+        console.log("Mongoose default connection disconnected on app termination.");
+        process.exit(0);
+    });
+});
 
 // exports
 module.exports = {
     getById: getById,
     getAllCustomers: getAllCustomers,
-    createCustomer: createCustomer
+    createCustomer: createCustomer,
+    updateById: updateCustomerById,
+    removeCustomer: removeCustomer
 };
 
 // functions
@@ -37,7 +39,8 @@ function getById(id) {
             console.log(error);
             deferred.reject(error);
         }
-        else if (customer) {
+
+        if (customer) {
             deferred.resolve(customer);
         }
         else {
@@ -55,7 +58,8 @@ function getAllCustomers() {
             console.log(error);
             deferred.reject(error);
         }
-        else if (customers) {
+
+        if (customers) {
             deferred.resolve(customers);
         }
     });
@@ -63,8 +67,8 @@ function getAllCustomers() {
     return deferred.promise;
 };
 
-// createCustomer grabs last customer documents"s id and increments it
-// this isn"t as efficient as I"d like until I put a sequence table increment
+// createCustomer grabs last customer documents's id and increments it
+// this isn't as efficient as I'd like until I put a sequence table increment
 
 function createCustomer(obj) {
     let deferred = q.defer();
@@ -79,13 +83,14 @@ function createCustomer(obj) {
     });
 
     customer.findOne().sort("-id").limit(1).exec((error, customer) => {
-        newCustomer.id = customer.id + 1;
+        newCustomer.id = ((customer === null) ? 1 : customer.id + 1);
         newCustomer.save((error, res) => {
             if (error) {
                 console.log(error);
                 deferred.reject(error);
             }
-            else {
+
+            if (res) {
                 deferred.resolve({
                     id: res.id
                 });
@@ -94,3 +99,52 @@ function createCustomer(obj) {
     });
     return deferred.promise;
 };
+
+function updateCustomerById(id, obj) {
+    let deferred = q.defer();
+
+    customer.findOneAndUpdate(
+        { "id": id },
+        {
+            $set: {
+                firstName: obj.customer.firstName,
+                lastName: obj.customer.lastName,
+                address: obj.customer.address,
+                phoneNumber: obj.customer.phoneNumber,
+                email: obj.customer.email
+            }
+        },
+        {
+            upsert: false,
+            returnNewDocument: true
+        },
+        (err, customer) => {
+            if (err) {
+                console.log(error);
+                deferred.reject(error);
+            };
+
+            if (customer) {
+                deferred.resolve(customer);
+            };
+        });
+
+    return deferred.promise;
+}
+
+function removeCustomer(obj) {
+    let deferred = q.defer();
+
+    customer.findOneAndRemove({ "id": obj.customer.id }, (err, res) => {
+        if (err) {
+            console.log(err);
+            deferred.reject(err);
+        }
+
+        if (res) {
+            deferred.resolve(res);
+        }
+    });
+
+    return deferred.promise;
+}

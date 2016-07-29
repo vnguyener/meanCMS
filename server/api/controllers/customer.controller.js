@@ -31,8 +31,7 @@ function getCustomers(req, res) {
             res.status(200).send(data);
         })
         .catch((err) => {
-            console.log(err);
-            res.sendStatus(500);
+            res.status(500).send(err);
         });
 }
 
@@ -43,13 +42,21 @@ function getCustomerById(req, res) {
                 res.status(200).send(data);
             })
             .catch((err) => {
-                console.log(err);
                 res.sendStatus(500);
             });
     }
 }
 
 function updateCustomerById(req, res) {
+    if (req.params.id && req.body) {
+        customerService.updateById(req.params.id, req.body)
+            .then((data) => {
+                res.status(204).send(data);
+            })
+            .catch((err) => {
+                res.sendStatus(500);
+            });
+    }
 }
 
 function createNewCustomer(req, res) {
@@ -59,12 +66,19 @@ function createNewCustomer(req, res) {
                 res.status(201).send({ id: data.id });
             })
             .catch((err) => {
-                console.log(err);
                 res.sendStatus(500);
             });
     }
 }
 
 function deleteCustomerById(req, res) {
-
+    if (req.params.id) {
+        customerService.removeCustomer(req.params.id)
+            .then((data) => {
+                res.sendStatus(200);
+            })
+            .catch((err) => {
+                res.sendStatus(500);
+            });
+    }
 }

@@ -6,7 +6,7 @@
 
 <section id="customer-addnew" layout="column" ng-cloak="" class="md-padding">
     <md-content class="md-whiteframe-z1">
-        <form name="newCustomerForm" novalidate class="md-padding">
+        <form name="newCustomerForm" class="md-padding">
             <md-subheader>Personal Information</md-subheader>
 
             <md-input-container class="md-block">
@@ -135,6 +135,14 @@
             <md-subheader>Room(s) Information</md-subheader>
 
             <md-input-container class="md-block">
+                <label>Alias</label>
+                <input type="text" required="" md-no-asterisk="" name="alias" ng-model="$ctrl.room.alias">
+                <div ng-messages="newRoomForm.alias.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
                 <label>Size in Square Ft.</label>
                 <input type="number" required="" md-no-asterisk="" name="size" ng-model="$ctrl.room.size">
                 <div ng-messages="newRoomForm.size.$error">
@@ -171,8 +179,8 @@
     <div ng-if="$ctrl.rooms.length > 0">
         <md-subheader>Room(s)</md-subheader>
         <div layout="row">
-            <md-button ng-repeat="room in $ctrl.rooms track by $index" class="md-raised md-warn">
-                Room {{$index + 1}} <a ng-click="$ctrl.removeRoom('$index')">x</a>
+            <md-button ng-repeat="room in $ctrl.rooms" class="md-raised md-warn">
+                {{room.alias}} <a ng-click="$ctrl.removeRoom('$index')">x</a>
             </md-button>
         </div>
     </div>

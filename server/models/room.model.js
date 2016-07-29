@@ -3,8 +3,35 @@
 const mongoose = require("mongoose");
 
 module.exports = mongoose.model("Room", {
-    homeID: {type: Number, default: null},
-    size: {type: Number, default: null},
-    numWindows: {type: Number, default: null},
-    numStory: {type: Number, default: null}
+    id: {
+        type: Number,
+        default: null,
+        require: true,
+        unique: true
+    },
+    homeID: { 
+        type: Number, 
+        default: null, 
+        required: true 
+    },
+    size: { 
+        type: Number, 
+        default: null, 
+        required: true 
+    },
+    numWindows: { 
+        type: Number, 
+        default: null, 
+        required: true 
+    },
+    numStory: { 
+        type: Number, 
+        default: null, 
+        required: true 
+    },
+    alias: {
+        type: String,
+        default: null,
+        required: false
+    }
 });

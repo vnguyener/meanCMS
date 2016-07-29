@@ -66,6 +66,10 @@
             <md-subheader class="md-no-sticky">Room(s) Information</md-subheader>
             <md-list-item class="noright md-2-line" ng-repeat="room in $ctrl.rooms">
                 <div class="md-list-item-text">
+                    <h3>Alias</h3>
+                    <p>{{room.alias}}</p>
+                </div>
+                <div class="md-list-item-text">
                     <h3>Size in Sq Ft.</h3>
                     <p>{{room.size}}</p>
                 </div>

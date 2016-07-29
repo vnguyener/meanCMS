@@ -29,6 +29,7 @@ function CustomerAddController(customerAddService, $location) {
     };
 
     self.room = {
+        alias: null,
         size: null,
         numWindows: null,
         numStory: null
@@ -58,6 +59,7 @@ function CustomerAddController(customerAddService, $location) {
     };
 
     self.clearRoomForm = function () {
+        self.room.alias = null;
         self.room.size = null;
         self.room.numWindows = null;
         self.room.numStory = null;
@@ -66,6 +68,7 @@ function CustomerAddController(customerAddService, $location) {
     self.addRoom = function (room) {
 
         self.rooms.push({
+            alias: room.alias,
             size: room.size,
             numWindows: room.numWindows,
             numStory: room.numStory
