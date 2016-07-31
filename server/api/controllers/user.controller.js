@@ -36,6 +36,7 @@ function authenticate(req, res) {
         .then((data) => {
             if (data.id) {
                 // if user.id exists
+                // create jwt token
                 res.status(200).send({ "message": "success" });
             } else {
                 // if not throw a 401

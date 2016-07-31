@@ -87,7 +87,7 @@ function createNewHouse(obj) {
         newHouse.save((error, res) => {
             if (error) {
                 console.log(error);
-                deferred.reject({ message: "Error on saveHouseDetails" });
+                deferred.reject({ message: "Error on createNewHouse" });
             }
             else {
                 if (obj.roomsInfo) {
@@ -150,13 +150,13 @@ function saveRooms(id, rooms) {
         });
 
         room.findOne().sort("-id").limit(1).exec((error, room) => {
+            console.log('last room id is: ' + room.id);
+            
             newRoom.id = ((room === null) ? 1 : room.id + 1);
             
             newRoom.save((error, res) => {
                 if (error) {
-                    return error;
-                } else {
-                    return res;
+                    console.log(error);
                 }
             });
         });

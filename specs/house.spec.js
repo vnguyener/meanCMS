@@ -26,8 +26,8 @@ describe("house service", () => {
         });
     });
 
-    it("should get house obj by customerid", (done) => {
-        
+    it.skip("should get house obj by customerid", (done) => {
+
         let customerID = 1;
 
         houseService.getHouseByCustomerId(customerID)
@@ -39,7 +39,7 @@ describe("house service", () => {
             });
     });
 
-    it("should get rooms array by houseid", (done) => {
+    it.skip("should get rooms array by houseid", (done) => {
 
         let houseID = 1;
 
@@ -51,8 +51,8 @@ describe("house service", () => {
             });
     });
 
-    it.skip("should insert new house obj with a room", (done) => {
-        
+    it("should insert new house obj with a room", (done) => {
+
         let req = {
             customerId: 2332,
             homeInfo: {
@@ -66,6 +66,14 @@ describe("house service", () => {
             },
             roomsInfo: [
                 {
+                    alias: 'asdf',
+                    homeID: 32433,
+                    size: 200,
+                    numWindows: 2,
+                    numStory: 1
+                },
+                {
+                    alias: '123',
                     homeID: 32433,
                     size: 200,
                     numWindows: 2,
@@ -74,12 +82,11 @@ describe("house service", () => {
             ]
         };
 
-        houseService.saveHouseDetails(req)
+        houseService.createNewHouse(req)
             .then((data) => {
                 assert.isString(data.message);
                 console.log(data.message);
                 done();
             });
-
     });
 });

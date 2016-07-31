@@ -5,14 +5,15 @@
 </md-toolbar>
 
 <section id="customer-addnew" layout="column" ng-cloak="" class="md-padding">
-    <md-content class="md-whiteframe-z1">
-        <form name="newCustomerForm" class="md-padding">
+    <form name="addCustomerForm" class="" ng-submit="$ctrl.setSessionForSummary(addCustomerForm)">
+        <md-content class="md-whiteframe-z1 md-padding">
+
             <md-subheader>Personal Information</md-subheader>
 
             <md-input-container class="md-block">
                 <label>First Name</label>
                 <input type="text" required="" md-no-asterisk="" name="firstName" ng-model="$ctrl.customer.firstName" ng-minlength="2">
-                <div ng-messages="newCustomerForm.firstName.$error">
+                <div ng-messages="addCustomerForm.firstName.$error">
                     <div ng-message="required">This is required.</div>
                     <div ng-message="minlength">This field needs to be at least (2) characters.</div>
                 </div>
@@ -21,7 +22,7 @@
             <md-input-container class="md-block">
                 <label>Last Name</label>
                 <input type="text" required="" md-no-asterisk="" name="lastName" ng-model="$ctrl.customer.lastName" ng-minlength="2">
-                <div ng-messages="newCustomerForm.lastName.$error">
+                <div ng-messages="addCustomerForm.lastName.$error">
                     <div ng-message="required">This is required.</div>
                     <div ng-message="minlength">This field needs to be at least (2) characters.</div>
                 </div>
@@ -30,7 +31,7 @@
             <md-input-container class="md-block">
                 <label>Address</label>
                 <input type="text" required="" md-no-asterisk="" name="address" ng-model="$ctrl.customer.address">
-                <div ng-messages="newCustomerForm.address.$error">
+                <div ng-messages="addCustomerForm.address.$error">
                     <div ng-message="required">This is required.</div>
                 </div>
             </md-input-container>
@@ -38,7 +39,7 @@
             <md-input-container class="md-block">
                 <label>Phone Number</label>
                 <input type="text" required="" md-no-asterisk="" name="phone" ng-model="$ctrl.customer.phoneNumber">
-                <div ng-messages="newCustomerForm.phone.$error">
+                <div ng-messages="addCustomerForm.phone.$error">
                     <div ng-message="required">This is required.</div>
                 </div>
             </md-input-container>
@@ -46,27 +47,25 @@
             <md-input-container class="md-block">
                 <label>Email</label>
                 <input type="email" required="" md-no-asterisk="" name="email" ng-model="$ctrl.customer.email" ng-pattern="/^.+@.+\..+$/">
-                <div ng-messages="newCustomerForm.email.$error">
+                <div ng-messages="addCustomerForm.email.$error">
                     <div ng-message="required">This is required.</div>
                     <div ng-message="pattern">This needs to look like an e-mail.</div>
                 </div>
             </md-input-container>
-        </form>
 
-        <div class="action-buttons" layout="row">
-            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearCustomerInfoForm()">Clear</md-button>
-        </div>
+            <div class="action-buttons" layout="row">
+                <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearCustomerInfoForm()">Clear</md-button>
+            </div>
 
-    </md-content>
+        </md-content>
 
-    <md-content class="md-whiteframe-z1">
-        <form name="newHomeForm" novalidate class="md-padding">
+        <md-content class="md-whiteframe-z1 md-padding">
             <md-subheader>Home Information</md-subheader>
 
             <md-input-container class="md-block">
                 <label>Size in Square Ft.</label>
                 <input type="number" required="" md-no-asterisk="" name="size" ng-model="$ctrl.home.totalSize">
-                <div ng-messages="newHomeForm.size.$error">
+                <div ng-messages="addCustomerForm.size.$error">
                     <div ng-message="required">This is required.</div>
                 </div>
             </md-input-container>
@@ -119,35 +118,27 @@
             <label>Installation Date</label>
             <md-datepicker name="installationDate" ng-model="$ctrl.home.installationDate" md-placeholder="Enter date" require=""></md-datepicker>
 
-            <div ng-messages="newHomeForm.installationDate.$error">
+            <div ng-messages="addCustomerForm.installationDate.$error">
                 <div ng-message="require">This date is required.</div>
             </div>
-        </form>
 
-        <div class="action-buttons" layout="row">
-            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearHomeForm()">Clear</md-button>
-        </div>
+            <div class="action-buttons" layout="row">
+                <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearHomeForm()">Clear</md-button>
+            </div>
 
-    </md-content>
+        </md-content>
 
-    <md-content class="md-whiteframe-z1">
-        <form name="newRoomForm" novalidate class="md-padding">
+        <md-content class="md-whiteframe-z1 md-padding">
             <md-subheader>Room(s) Information</md-subheader>
 
             <md-input-container class="md-block">
                 <label>Alias</label>
-                <input type="text" required="" md-no-asterisk="" name="alias" ng-model="$ctrl.room.alias">
-                <div ng-messages="newRoomForm.alias.$error">
-                    <div ng-message="required">This is required.</div>
-                </div>
+                <input type="text" md-no-asterisk="" name="alias" ng-model="$ctrl.room.alias">
             </md-input-container>
 
             <md-input-container class="md-block">
                 <label>Size in Square Ft.</label>
-                <input type="number" required="" md-no-asterisk="" name="size" ng-model="$ctrl.room.size">
-                <div ng-messages="newRoomForm.size.$error">
-                    <div ng-message="required">This is required.</div>
-                </div>
+                <input type="number" md-no-asterisk="" name="size" ng-model="$ctrl.room.size">
             </md-input-container>
 
             <md-input-container class="md-block">
@@ -167,26 +158,25 @@
                     </md-option>
                 </md-select>
             </md-input-container>
-        </form>
+            <div class="action-buttons" layout="row">
+                <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearRoomForm()">Clear</md-button>
+                <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.addRoom($ctrl.room)">Add Room</md-button>
+            </div>
 
-        <div class="action-buttons" layout="row">
-            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.clearRoomForm()">Clear</md-button>
-            <md-button md-no-ink="" class="md-primary" ng-click="$ctrl.addRoom($ctrl.room)">Add Room</md-button>
+        </md-content>
+
+        <div ng-if="$ctrl.rooms.length > 0">
+            <md-subheader>Room(s)</md-subheader>
+            <div layout="row">
+                <md-button ng-repeat="room in $ctrl.rooms" class="md-raised md-warn">
+                    {{room.alias}} <a ng-click="$ctrl.removeRoom('$index')">x</a>
+                </md-button>
+            </div>
         </div>
 
-    </md-content>
-
-    <div ng-if="$ctrl.rooms.length > 0">
-        <md-subheader>Room(s)</md-subheader>
-        <div layout="row">
-            <md-button ng-repeat="room in $ctrl.rooms" class="md-raised md-warn">
-                {{room.alias}} <a ng-click="$ctrl.removeRoom('$index')">x</a>
-            </md-button>
+        <div class="action-buttons center-button" layout="row">
+            <md-button class="md-raised md-primary" type="submit">Go To Summary</md-button>
         </div>
-    </div>
-
-    <div class="action-buttons center-button" layout="row">
-        <md-button class="md-raised md-primary" ng-click="$ctrl.setSessionForSummary()">Go To Summary</md-button>
-    </div>
+    </form>
 
 </section>

@@ -17,16 +17,21 @@ function LoginController(loginService, $location) {
     self.$onInit = function () {
     };
 
-    self.login = function () {
-        loginService.login(self.email, self.password)
-            .then(function (response) {
-                self.errorMessage = "";
-                $location.path("/customers");
-            })
-            .catch(function(error) {
-                self.email = "";
-                self.password = "";
-                self.errorMessage = error.data.reason;
-            });
-    };
+    self.login = function (form) {
+        if (form.$valid) {
+            loginService.login(self.email, self.password)
+                .then(function (response) {
+                    self.errorMessage = "";
+                    $location.path("/customers");
+                })
+                .catch(function (error) {
+                    self.email = "";
+                    self.password = "";
+                    self.errorMessage = error.data.reason;
+                });
+        }
+        else {
+            self.errorMessage = "Please fill in the required inputs.";
+        }
+    }
 }

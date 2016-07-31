@@ -33,7 +33,12 @@ json files for bower/npm/eslint configurations
 
 ## Todos
 
+* add middleware validation using express validator
 * add authentication on routes // phase 2
+    * adding session identifiers
+    * adding jwt, access and refresh tokens, storing jwt in the browser
+      * verify username/password
+      * create a sessionid, link to username
+      * stores session id in a cookie
+      * setting http only to true
 * abstract mongoose connection from services // phase 2
-* add indexing for mongo dbs
-* setup mongolab

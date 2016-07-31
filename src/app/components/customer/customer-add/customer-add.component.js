@@ -81,14 +81,19 @@ function CustomerAddController(customerAddService, $location) {
         self.rooms.splice(index, 1);
     };
 
-    self.setSessionForSummary = function () {
-        if (("localStorage" in window) && window.localStorage !== null) {
-            localStorage.clear();
-            localStorage.customerInfo = JSON.stringify(self.customer);
-            localStorage.homeInfo = JSON.stringify(self.home);
-            localStorage.roomsInfo = JSON.stringify(self.rooms);
-        }
+    self.setSessionForSummary = function (form) {
+        if (form.$valid) {
+            if (("localStorage" in window) && window.localStorage !== null) {
+                localStorage.clear();
+                localStorage.customerInfo = JSON.stringify(self.customer);
+                localStorage.homeInfo = JSON.stringify(self.home);
+                localStorage.roomsInfo = JSON.stringify(self.rooms);
+            }
 
-        $location.path("/customer/new/summary");
+            $location.path("/customer/new/summary");
+        }
+        else {
+            alert('errors');
+        }
     };
 }

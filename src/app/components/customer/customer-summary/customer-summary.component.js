@@ -20,8 +20,6 @@ function CustomerSummaryController(customerSummaryService, $location, $mdToast) 
 
     self.save = function () {
         saveCustomerInfo();
-        localStorage.clear();
-        $location.path("/customers");
     };
 
     var getInfoFromLocalStorage = function () {
@@ -53,6 +51,8 @@ function CustomerSummaryController(customerSummaryService, $location, $mdToast) 
 
         customerSummaryService.saveHomeInfo(reqObj)
             .then(function (data) {
+                localStorage.clear();
+                $location.path("/customers");
             }, function (error) {
                 console.log(error);
                 throw new Error(error.message);

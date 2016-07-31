@@ -91,7 +91,7 @@ gulp.task('watch', () => {
 
 gulp.task('test', () => {
     // spec/*.js
-    gulp.src('specs/user.spec.js')
+    gulp.src('specs/house.spec.js')
         .pipe(mocha());
 });
 
