@@ -20,7 +20,9 @@
     "serve-favicon": "^2.3.0",
     "q": "^1.4.1",
     "jsonwebtoken": "^7.1.6",
-    "express-validator": "^2.20.8"
+    "express-validator": "^2.20.8",
+    "node-uuid": "^1.4.7",
+    "cookies": "0.6.1",
   },
   "devDependencies": {
     "gulp": "^3.9.1",

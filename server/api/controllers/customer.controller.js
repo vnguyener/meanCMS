@@ -2,8 +2,6 @@
 
 const express = require("express"),
     router = express.Router(),
-    https = require("https"),
-    http = require("http"),
     customerService = require("../../services/customer.service");
 
 /* "/api/customers"

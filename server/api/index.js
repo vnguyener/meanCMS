@@ -2,7 +2,8 @@
 
 const user = require("./controllers/user.controller"),
     customer = require("./controllers/customer.controller"),
-    home = require("./controllers/house.controller");
+    home = require("./controllers/house.controller"),
+    auth = require("./controllers/auth.controller");
 
 function Routes(app) {
     app = app || {};
@@ -16,6 +17,7 @@ function Routes(app) {
     app.use("/api", customer);
     app.use("/api", user);
     app.use("/api", home);
+    app.use("/", auth);
 };
 
 module.exports = Routes;

@@ -18,7 +18,8 @@ let config = {
         js: [
             'src/app/app.js',
             'src/app/components/**/*.js',
-            'src/app/components/**/**/*.js'
+            'src/app/components/**/**/*.js',
+            'src/app/shared/*.js'
         ],
         server: [
             'server/*.js',
@@ -91,9 +92,9 @@ gulp.task('watch', () => {
 
 gulp.task('test', () => {
     // spec/*.js
-    gulp.src('specs/house.spec.js')
+    gulp.src('specs/user.spec.js')
         .pipe(mocha({
-            timeout: 5000
+            timeout: 3000
         }))
         .once('error', function () {
             process.exit(1);

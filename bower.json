@@ -19,6 +19,7 @@
     "angular": "*",
     "angular-material": "*",
     "angular-route": "*",
-    "angular-ui-router": "*"
+    "angular-ui-router": "*",
+    "angular-cookies": "*"
   }
 }

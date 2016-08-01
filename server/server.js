@@ -4,6 +4,7 @@ const express = require("express"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
     validator = require("express-validator"),
+    cookieParser = require("cookie-parser"),
     customValidations = require("./helpers/customValidators");
 
 let server = function (config) {
@@ -25,9 +26,10 @@ let server = function (config) {
         self.express.use(bodyParser.urlencoded({ extended: true }));
         self.express.use(bodyParser.json());
         self.express.use(methodOverride("X-HTTP-Method-Override"));
+        self.express.use(cookieParser());
         self.express.use(express.static("dist"));
         self.express.use(validator(customValidations));
-        
+
         // Start the server listening
         config.port = config.port || process.env.port || 80;
         let instance = self.express.listen(config.port);

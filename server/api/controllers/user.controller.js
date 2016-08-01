@@ -2,10 +2,11 @@
 
 const express = require("express"),
     router = express.Router(),
-    https = require("https"),
-    http = require("http"),
-    userService = require("../../services/user.service");
-
+    uuid = require("node-uuid"),
+    jwt = require("jsonwebtoken"),
+    userService = require("../../services/user.service"),
+    Cookies = require("cookies");
+    
 /* "/api/user"
 *   POST: "/user/authenticate" gets user from db sending params through body
 */
@@ -56,7 +57,21 @@ function authenticate(req, res) {
                 if (data.id) {
                     // if user.id exists
                     // create jwt token
-                    res.status(200).send({ "message": "success" });
+                    let key = uuid.v4();
+                    req.app.set('secret', key);
+                    
+                    let token = jwt.sign(data._id, key, {
+                        issuer: "vtn",
+                        expiresIn: "1h"
+                    });
+                    console.log(token);
+                    
+                    new Cookies(req, res).set('access_token', token, {
+                        httpOnly: true
+                    });
+
+                    res.sendStatus(200);
+                    
                 } else {
                     // if not throw a 401
                     res.status(401).send({ "reason": data.message });

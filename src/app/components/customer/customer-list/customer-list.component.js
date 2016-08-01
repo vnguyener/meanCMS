@@ -7,7 +7,7 @@ angular
 
 CustomerListController.$inject = ["customer-list.service", "$location"];
 
-function CustomerListController(customerListService, $location) {
+function CustomerListController(customerListService, $location, auth) {
     var self = this;
 
     self.customers = [];
