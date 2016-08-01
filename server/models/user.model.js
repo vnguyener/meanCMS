@@ -66,6 +66,7 @@ userSchema.methods.isValidPassword = function (password) {
     return this.hash === hash;
 };
 
+// todo - idea - generate jwt based on user key?
 userSchema.methods.generateJwt = function () {
     let expiration = new Date();
     expiration.setDate(expiration.getDate() + 7);

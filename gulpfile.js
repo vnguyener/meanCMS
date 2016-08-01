@@ -99,7 +99,7 @@ gulp.task('todo', function() {
 
 gulp.task('test', () => {
     // spec/*.js
-    gulp.src('specs/user.spec.js')
+    gulp.src(['specs/user.spec.js'])
         .pipe(mocha({
             timeout: 3000
         }))

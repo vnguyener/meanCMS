@@ -1,5 +1,13 @@
 {
     "connectionStrings": {
         "cms": "mongodb://localhost/cms_demo"
+    },
+    "env" :{
+        "dev": {
+
+        },
+        "prod": {
+            
+        }
     }
 }

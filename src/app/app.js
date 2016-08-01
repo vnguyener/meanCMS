@@ -1,7 +1,9 @@
 angular.module("main", ["ngMaterial", "ngMessages", "ngRoute", "ngCookies"])
     .config(function ($routeProvider) {
         $routeProvider
-            .when("/", { template: "<login></login>" })
+            .when("/", { 
+                template: "<login></login>" 
+            })
             .when("/customers", {
                 template: "<customer-list></customer-list>",
                 resolve: {

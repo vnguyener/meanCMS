@@ -6,7 +6,7 @@ const express = require("express"),
     jwt = require("jsonwebtoken"),
     userService = require("../../services/user.service"),
     Cookies = require("cookies");
-    
+
 /* "/api/user"
 *   POST: "/user/authenticate" gets user from db sending params through body
 */
@@ -33,11 +33,11 @@ function getUserById(req, res) {
 
 function authenticate(req, res) {
 
-    //validating
+    // validating
     req.checkBody("email", "Invalid Username.").notEmpty().isEmail();
     req.checkBody("password", "Invalid password.").notEmpty();
 
-    //sanitizing
+    // sanitizing
     try {
         req.sanitizeBody("email").escape().toString().trim();
         req.sanitizeBody("password").escape().toString().trim();
@@ -59,19 +59,20 @@ function authenticate(req, res) {
                     // create jwt token
                     let key = uuid.v4();
                     req.app.set('secret', key);
-                    
+
                     let token = jwt.sign(data._id, key, {
                         issuer: "vtn",
                         expiresIn: "1h"
                     });
                     console.log(token);
-                    
+
                     new Cookies(req, res).set('access_token', token, {
                         httpOnly: true
+                        //set exp on cookie?
                     });
 
                     res.sendStatus(200);
-                    
+
                 } else {
                     // if not throw a 401
                     res.status(401).send({ "reason": data.message });

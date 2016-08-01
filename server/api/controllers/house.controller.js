@@ -15,7 +15,7 @@ const express = require("express"),
 router.get("/house/:id", getHouseByCustomerId);
 router.get("/house/:id/rooms", getRoomsByHouseId);
 router.put("/house/:id/edit", updateHouseDetails);
-router.post("/house/save", saveHouseDetails);
+router.post("/house/save", createNewHouseDetails);
 
 module.exports = router;
 
@@ -71,8 +71,9 @@ function getRoomsByHouseId(req, res) {
     }
 };
 
-function saveHouseDetails(req, res) {
+function createNewHouseDetails(req, res) {
     if (req.body) {
+
         // validate 
         req.checkBody("customerId", "Invalid Customer ID.").notEmpty().isInt();
         req.checkBody("homeInfo", "Invalid Post Param.").notEmpty();
@@ -86,7 +87,6 @@ function saveHouseDetails(req, res) {
         req.checkBody("roomsInfo", "Invalid Post Param.").isArray();
        
         // sanitize
-
         try {
             req.sanitizeBody("homeInfo.totalSize").escape().trim();
             req.sanitizeBody("homeInfo.numStories").escape().trim();

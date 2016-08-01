@@ -67,8 +67,7 @@ function getAllCustomers() {
     return deferred.promise;
 };
 
-// createCustomer grabs last customer documents's id and increments it
-// this isn't as efficient as I'd like until I put a sequence table increment
+// notes: createCustomer grabs last customer documents's id and increments it.. this isn't as efficient want to do an update $inc seq: 1 on insert
 
 function createCustomer(obj) {
     let deferred = q.defer();

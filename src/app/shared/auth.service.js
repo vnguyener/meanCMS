@@ -4,7 +4,7 @@ angular
 
 AuthService.$inject = ["$http", "$q", "$log", "$location", "$cookies"];
 
-//todo: extract locationing out of service move into a broadcast of sorts
+//todo: extract locationing out of service move into a broadcast of sorts.... or just a httpprovidor.interceptor
 function AuthService($http, $q, logger, $location, $cookies) {
 
 	return {
