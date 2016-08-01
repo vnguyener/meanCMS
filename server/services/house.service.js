@@ -28,7 +28,8 @@ module.exports = {
     createNewHouse: createNewHouse,
     getHouseByCustomerId: getHouseByCustomerId,
     getRoomsByHouseId: getRoomsByHouseId,
-    updateHouseDetails: updateHouseDetails
+    updateHouseDetails: updateHouseDetails,
+    saveRooms: saveRooms
 };
 
 // functions
@@ -51,7 +52,7 @@ function getHouseByCustomerId(id) {
 
 function getRoomsByHouseId(id) {
     let deferred = q.defer();
-    room.find({ "id": id }, (error, rooms) => {
+    room.find({ "homeID": id }, (error, rooms) => {
         if (error) {
             deferred.reject(error);
         }
@@ -83,17 +84,22 @@ function createNewHouse(obj) {
 
     house.findOne().sort("-id").limit(1).exec((error, house) => {
         newHouse.id = ((house === null) ? 1 : house.id + 1);
-        
+
         newHouse.save((error, res) => {
             if (error) {
                 console.log(error);
                 deferred.reject({ message: "Error on createNewHouse" });
-            }
-            else {
+            } else {
                 if (obj.roomsInfo) {
-                    saveRooms(res.id, obj.roomsInfo);
+                    saveRooms(res.id, obj.roomsInfo)
+                        .then((data) => {
+                            deferred.resolve(data);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            deferred.reject(err);
+                        });
                 }
-                deferred.resolve({ message: "Save Successful." });
             }
         });
     });
@@ -137,30 +143,44 @@ function updateHouseDetails(id, obj) {
     return deferred.promise;
 }
 
-function saveRooms(id, rooms) {
-    rooms.forEach((obj) => {
+function saveRooms(homeID, rooms) {
+    let deferred = q.defer();
 
-        let newRoom = new room({
-            id: null,
-            alias: obj.alias,
-            homeID: id,
-            size: obj.size,
-            numWindows: obj.numWindows,
-            numStory: obj.numStory
-        });
+    let newRooms = [];
 
-        room.findOne().sort("-id").limit(1).exec((error, room) => {
-            console.log('last room id is: ' + room.id);
-            
-            newRoom.id = ((room === null) ? 1 : room.id + 1);
-            
-            newRoom.save((error, res) => {
-                if (error) {
-                    console.log(error);
+    room.findOne().sort("-id").limit(1).exec((error, lastRoom) => {
+
+        if (error) {
+            deferred.reject(error);
+        } else {
+
+            let lastIndex = ((lastRoom === null) ? 1 : lastRoom.id + 1);
+
+            rooms.forEach((obj) => {
+                let newRoom = {
+                    id: lastIndex,
+                    alias: obj.alias,
+                    homeID: homeID,
+                    size: obj.size,
+                    numWindows: obj.numWindows,
+                    numStory: obj.numStory
+                };
+
+                newRooms.push(newRoom);
+                lastIndex++;
+            });
+            room.collection.insert(newRooms, (err, res) => {
+                if (err) {
+                    console.log(err);
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(res.result);
                 }
             });
-        });
+        }
     });
+
+    return deferred.promise;
 };
 
 function updateRooms(homeID, rooms) {

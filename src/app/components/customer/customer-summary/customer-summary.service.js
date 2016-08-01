@@ -2,9 +2,9 @@ angular
     .module("main")
     .factory("customer-summary.service", CustomerSummaryService);
 
-CustomerSummaryService.$inject = ["$http"];
+CustomerSummaryService.$inject = ["$http", "$log"];
 
-function CustomerSummaryService($http) {
+function CustomerSummaryService($http, logger) {
 
     return {
         saveHomeInfo: saveHomeInfo,
@@ -12,10 +12,28 @@ function CustomerSummaryService($http) {
     };
 
     function saveHomeInfo(data) {
-        return $http.post("/api/house/save", data);
+        return $http.post("/api/house/save", data)
+            .then(onComplete, onError);
+
+        function onComplete(response) {
+            return response.data;
+        };
+
+        function onError(error) {
+            logger.error(error.data);
+        };
     };
 
-    function saveCustomerInfo (data) {
-        return $http.post("/api/customer/save", data);
+    function saveCustomerInfo(data) {
+        return $http.post("/api/customer/save", data)
+            .then(onComplete, onError);
+
+        function onComplete(response) {
+            return response.data;
+        };
+
+        function onError(error) {
+            logger.error(error.data);
+        };
     };
 }

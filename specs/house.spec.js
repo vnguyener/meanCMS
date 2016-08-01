@@ -51,7 +51,7 @@ describe("house service", () => {
             });
     });
 
-    it("should insert new house obj with a room", (done) => {
+    it("should insert new house obj with two rooms", (done) => {
 
         let req = {
             customerId: 2332,
@@ -66,15 +66,13 @@ describe("house service", () => {
             },
             roomsInfo: [
                 {
-                    alias: 'asdf',
-                    homeID: 32433,
+                    alias: 'room1',
                     size: 200,
                     numWindows: 2,
                     numStory: 1
                 },
                 {
-                    alias: '123',
-                    homeID: 32433,
+                    alias: 'room2',
                     size: 200,
                     numWindows: 2,
                     numStory: 1
@@ -84,8 +82,35 @@ describe("house service", () => {
 
         houseService.createNewHouse(req)
             .then((data) => {
-                assert.isString(data.message);
-                console.log(data.message);
+                assert.isNotNull(data);
+                console.log(data);
+                done();
+            });
+    });
+
+    it.skip("should save a list of rooms to a house", (done) => {
+        let req = {
+            "id": 1,
+            "rooms": [
+                {
+                    alias: "test1",
+                    size: 123,
+                    numWindows: 2,
+                    numStory: 2
+                },
+                {
+                    alias: "test2room2",
+                    size: 345,
+                    numWindows: 1,
+                    numStory: 1
+                }
+            ]
+        };
+
+        houseService.saveRooms(req.id, req.rooms)
+            .then((data) => {
+                assert.isNotNull(data);
+                assert.equal(data.ok, 1);
                 done();
             });
     });

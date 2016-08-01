@@ -41,7 +41,7 @@ function authenticateUser(email, password) {
             let isValidPassword = user.isValidPassword(password);
             if (!isValidPassword) {
                 deferred.resolve({ message: "UnauthorizedError: Invalid email and/or password." })
-            } 
+            }
             else {
                 deferred.resolve(user);
             }
@@ -68,4 +68,4 @@ function getUserById(id) {
     });
 
     return deferred.promise;
-}
+};

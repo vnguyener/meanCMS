@@ -26,7 +26,9 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
         customerDetailsService.getCustomerByID(id)
             .then(function (response) {
                 self.customer = response;
-                getHomeDetails(self.customer.id, getRooms);
+                if (self.customer && self.customer.id) {
+                    getHomeDetails(self.customer.id, getRooms);
+                }
             });
     };
 
@@ -34,7 +36,9 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
         customerDetailsService.getHomeByCustomerId(id)
             .then(function (response) {
                 self.house = response;
-                callback(self.house.id);
+                if (self.house && self.house.id) {
+                    callback(self.house.id);
+                }
             });
     };
 
@@ -42,7 +46,6 @@ function CustomerDetailsController(customerDetailsService, $routeParams) {
         customerDetailsService.getRoomsByHomeId(id)
             .then(function (response) {
                 self.rooms = response;
-                console.log(self.rooms);
             });
     }
 }

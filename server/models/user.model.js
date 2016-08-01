@@ -1,9 +1,9 @@
 "use strict"
 
 const mongoose = require("mongoose"),
-        Schema = mongoose.Schema,
-        crypto = require("crypto"),
-        jwt = require("jsonwebtoken");
+    Schema = mongoose.Schema,
+    crypto = require("crypto"),
+    jwt = require("jsonwebtoken");
 
 // schema definition
 let userSchema = new Schema({
@@ -45,28 +45,28 @@ let userSchema = new Schema({
 });
 
 // schema document instance methods
-userSchema.methods.setPassword = function(password) {
+userSchema.methods.setPassword = function (password) {
 
-    let obj = { 
+    let obj = {
         salt: null,
         hash: null
     }
 
     this.salt = crypto.randomBytes(16).toString("hex");
     this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-    
+
     obj.salt = this.salt;
     obj.hash = this.hash;
-    
+
     return obj
 };
 
-userSchema.methods.isValidPassword = function(password) {
+userSchema.methods.isValidPassword = function (password) {
     let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
     return this.hash === hash;
 };
 
-userSchema.methods.generateJwt = function() {
+userSchema.methods.generateJwt = function () {
     let expiration = new Date();
     expiration.setDate(expiration.getDate() + 7);
 
@@ -74,7 +74,7 @@ userSchema.methods.generateJwt = function() {
         _id: this._id,
         email: this.email,
         exp: parseInt(expiration.getTime() / 1000),
-        }, "_SuperSecret_");
+    }, "_SuperSecret_");
 };
 
 module.exports = mongoose.model("User", userSchema);

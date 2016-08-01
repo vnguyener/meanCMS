@@ -1,6 +1,6 @@
 <md-toolbar class="md-tall md-primary">
     <h2 class="md-toolbar-tools">
-        <span>Customers > New</span>
+        <span><a href="/#/customers">Customers</a> > New</span>
     </h2>
 </md-toolbar>
 
@@ -168,8 +168,8 @@
         <div ng-if="$ctrl.rooms.length > 0">
             <md-subheader>Room(s)</md-subheader>
             <div layout="row">
-                <md-button ng-repeat="room in $ctrl.rooms" class="md-raised md-warn">
-                    {{room.alias}} <a ng-click="$ctrl.removeRoom('$index')">x</a>
+                <md-button ng-repeat="room in $ctrl.rooms track by $index" class="md-raised md-warn">
+                    {{room.alias}} <a ng-click="$ctrl.removeRoom($index)">x</a>
                 </md-button>
             </div>
         </div>

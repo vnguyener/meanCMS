@@ -18,7 +18,7 @@ function LoginService($http, $q, logger) {
 			return response.data;
 		};
 
-		function onError(error) {		
+		function onError(error) {
 			return $q.reject(error);
 		};
 	};

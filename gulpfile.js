@@ -16,15 +16,15 @@ let config = {
     paths: {
         html: 'index.html',
         js: [
-            'src/app/app.js', 
-            'src/app/components/**/*.js', 
+            'src/app/app.js',
+            'src/app/components/**/*.js',
             'src/app/components/**/**/*.js'
-            ],
+        ],
         server: [
-            'server/*.js', 
+            'server/*.js',
             'server/**/**/*.js',
             'server/**/*.js',
-            ],
+        ],
         templates: ['src/app/components/**/*.html', 'src/app/components/**/**/*.html'],
         imgs: ['src/assets/imgs/*.jpg', 'src/assets/imgs/*.png'],
         dist: 'dist',
@@ -92,9 +92,17 @@ gulp.task('watch', () => {
 gulp.task('test', () => {
     // spec/*.js
     gulp.src('specs/house.spec.js')
-        .pipe(mocha());
+        .pipe(mocha({
+            timeout: 5000
+        }))
+        .once('error', function () {
+            process.exit(1);
+        })
+        .once('end', function () {
+            process.exit();
+        });;
 });
 
-gulp.task('build', ['html', 'template','sass', 'imgs', 'js']);
+gulp.task('build', ['html', 'template', 'sass', 'imgs', 'js']);
 
 gulp.task("default", ['build', 'watch', 'connect']);

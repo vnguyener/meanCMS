@@ -92,8 +92,5 @@ function CustomerAddController(customerAddService, $location) {
 
             $location.path("/customer/new/summary");
         }
-        else {
-            alert('errors');
-        }
     };
 }

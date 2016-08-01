@@ -33,12 +33,8 @@ function CustomerSummaryController(customerSummaryService, $location, $mdToast) 
     var saveCustomerInfo = function () {
         customerSummaryService.saveCustomerInfo(self.customerInfo)
             .then(function (response) {
-                saveHouseInfo(response.data.id);
-            }, function (error) {
-                console.log(error);
-                throw new Error(error.message);
-            })
-
+                saveHouseInfo(response.id);
+            });
     };
 
     var saveHouseInfo = function (customerId) {
@@ -53,9 +49,6 @@ function CustomerSummaryController(customerSummaryService, $location, $mdToast) 
             .then(function (data) {
                 localStorage.clear();
                 $location.path("/customers");
-            }, function (error) {
-                console.log(error);
-                throw new Error(error.message);
             });
     };
 }
