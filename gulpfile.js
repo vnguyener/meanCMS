@@ -10,7 +10,8 @@ const gulp = require('gulp'),
     annotate = require('gulp-ng-annotate'),
     uglify = require('gulp-uglify'),
     util = require('gulp-util'),
-    connect = require('gulp-connect');
+    connect = require('gulp-connect'),
+    todo = require('gulp-todo');
 
 let config = {
     paths: {
@@ -88,6 +89,12 @@ gulp.task('watch', () => {
     gulp.watch(config.paths.sass, ['sass']);
     gulp.watch(config.paths.html, ['html']);
     gulp.watch(config.paths.templates, ['template']);
+});
+
+gulp.task('todo', function() {
+    gulp.src(config.paths.js.concat(config.paths.server))
+        .pipe(todo())
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('test', () => {
